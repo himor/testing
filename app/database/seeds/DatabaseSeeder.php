@@ -1,6 +1,7 @@
 <?php
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
 
 	/**
 	 * Run the database seeds.
@@ -31,7 +32,6 @@ class DatabaseSeeder extends Seeder {
 				'created_at' => date('Y-m-d H:i:s')
 			]
 		);
-
 
 		/**
 		 * Create departments
@@ -107,6 +107,46 @@ class DatabaseSeeder extends Seeder {
 			[
 				'id'         => 1,
 				'name'       => 'Отдел разработки',
+				'created_at' => date('Y-m-d H:i:s')
+			]
+		);
+
+		/**
+		 * Create a default category
+		 */
+		DB::table('category')->insert(
+			[
+				'id'         => 1,
+				'name'       => 'Стандартная',
+				'created_at' => date('Y-m-d H:i:s')
+			]
+		);
+
+		/**
+		 * Create a test
+		 */
+		DB::table('test')->insert(
+			[
+				'id'          => 1,
+				'name'        => 'Тест номер 1',
+				'description' => 'Описание теста',
+				'type'        => Test::TEST_TYPE_SUMMA,
+				'duration'    => 600,
+				'category_id' => 1,
+				'user_id'     => 1,
+				'created_at'  => date('Y-m-d H:i:s')
+			]
+		);
+
+		/**
+		 * Create a token
+		 */
+		DB::table('token')->insert(
+			[
+				'id'         => 1,
+				'token'      => md5(microtime()) . md5(microtime(true)),
+				'test_id'    => 1,
+				'status'     => Token::TOKEN_STATUS_EMPTY,
 				'created_at' => date('Y-m-d H:i:s')
 			]
 		);

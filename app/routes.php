@@ -1,9 +1,16 @@
 <?php
 
 Route::pattern('id', '[0-9]+');
+Route::pattern('token', '[0-9a-z]+');
 Route::get('/', [
 		'as'   => 'base',
 		'uses' => 'HomeController@defaultAction'
+	]
+);
+
+Route::get('info', [
+		'as'   => 'info',
+		'uses' => 'HomeController@infoAction'
 	]
 );
 
@@ -158,5 +165,45 @@ Route::put('admin/groups/{id}', [
 Route::delete('admin/groups/{id}', [
 		'as'   => 'groups.destroy',
 		'uses' => 'GroupController@deleteAction'
+	]
+);
+
+/**
+ * Token initialization
+ */
+Route::get('/start', [
+		'as'   => 'start.index',
+		'uses' => 'TokenController@startIndexAction'
+	]
+);
+
+Route::post('/start', [
+		'as'   => 'start.store',
+		'uses' => 'TokenController@startAction'
+	]
+);
+
+/**
+ * Testing
+ */
+Route::get('/test', [
+		'as'   => 'test.index',
+		'uses' => 'TestController@indexAction'
+	]
+);
+
+Route::get('/test/check_status', [
+		'as'   => 'check_status',
+		'uses' => 'TestController@checkTime'
+	]
+);
+
+
+/**
+ * Tokens
+ */
+Route::get('/{token}', [
+		'as'   => 'token.index',
+		'uses' => 'TokenController@indexAction'
 	]
 );

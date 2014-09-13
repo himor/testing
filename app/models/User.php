@@ -48,4 +48,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 		return 'remember_token';
 	}
 
+	/**
+	 * User one-to-many Test
+	 *
+	 * @return mixed
+	 */
+	public function tests()
+	{
+		return $this->hasMany('Test');
+	}
 }
