@@ -43,6 +43,7 @@ class TestController extends BaseController
 				/**
 				 * Ответы есть на все вопросы
 				 */
+				Session::forget('token_string');
 				return Redirect::route('info')->with('message', 'Тест завершен. Вы ответили на все вопросы.');
 			} else {
 				/**

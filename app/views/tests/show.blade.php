@@ -18,6 +18,8 @@
 
 <p><a href="{{ URL::route('tests.edit', $test->id) }}">edit</a></p>
 
+<p><a href="{{ URL::route('token.create', $test->id) }}" target="_blank">Отправить пользователю</a></p>
+
 <p><a href="#">добавить вопрос</a></p>
 
 @stop

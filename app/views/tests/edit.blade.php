@@ -96,6 +96,10 @@
 		</div>
 		@endif
 
+		<div class="form-group">
+			{{ Form::checkbox('active', '1', false) }} Открыт для тестирования
+		</div>
+
 		<hr/>
 		<div class="form-group">
 			{{ Form::submit('Обновить', array('class' => 'btn btn-success')) }}

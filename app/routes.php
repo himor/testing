@@ -231,6 +231,15 @@ Route::post('/start', [
 );
 
 /**
+ * Token creation
+ */
+Route::get('/token/{id}', [
+		'as'   => 'token.create',
+		'uses' => 'TokenController@createAction'
+	]
+);
+
+/**
  * Testing
  */
 Route::get('/test', [

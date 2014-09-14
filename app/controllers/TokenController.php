@@ -21,6 +21,11 @@ class TokenController extends BaseController
 				->with('message', 'Токен не найден');
 		}
 
+		if (!$token->test->active) {
+			return Redirect::route('info')
+				->with('message', 'Тест закрыт для тестирования');
+		}
+
 		switch ($token->status) {
 			case Token::TOKEN_STATUS_EMPTY:
 			case Token::TOKEN_STATUS_STARTED:
@@ -123,6 +128,28 @@ class TokenController extends BaseController
 		$token->save();
 
 		return Redirect::route('test.index');
+	}
+
+	/**
+	 * Создание токена для теста
+	 *
+	 * @param $id
+	 */
+	public function createAction($id)
+	{
+		$test = Test::find($id);
+
+		if (is_null($test)) {
+			return Redirect::route('info')
+				->with('message', 'Тест не найден');
+		}
+
+		$token = new Token();
+		$token->token = $token->generate($test->name);
+		$token->test_id = $id;
+		$token->save();
+
+		return View::make('test.token', ['token' => $token->token]);
 	}
 
 }

@@ -193,6 +193,7 @@ class TestsController extends BaseController
 		}
 
 		$test->update($data);
+		$test->active = isset($data['active']) && $data['active'];
 		$test->save();
 
 		return Redirect::route('tests.show', $id);
