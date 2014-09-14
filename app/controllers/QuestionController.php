@@ -105,6 +105,9 @@ class QuestionController extends BaseController
 			if ($answer->is_correct && !$answer->weight)
 				$answer->weight = 1;
 
+			if (!$answer->is_correct)
+				$answer->weight = 0;
+
 			$answer->save();
 		}
 

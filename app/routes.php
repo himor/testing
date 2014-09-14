@@ -1,6 +1,7 @@
 <?php
 
 Route::pattern('id', '[0-9]+');
+Route::pattern('rid', '[0-9]+');
 Route::pattern('token', '[0-9a-z]+');
 Route::get('/', [
 		'as'   => 'base',
@@ -232,6 +233,20 @@ Route::post('admin/question', [
 		'as'     => 'question.store',
 		'before' => 'csrf',
 		'uses'   => 'QuestionController@storeAction'
+	]
+);
+
+/**
+ * Test results
+ */
+Route::get('admin/test/{id}/result', [
+		'as'   => 'result.index',
+		'uses' => 'ResultController@indexAction'
+	]
+);
+Route::get('admin/test/{id}/result/{rid}', [
+		'as'   => 'result.show',
+		'uses' => 'ResultController@showAction'
 	]
 );
 

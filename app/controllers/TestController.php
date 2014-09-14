@@ -167,6 +167,7 @@ class TestController extends BaseController
 				$result->a_text     = $answer->text;
 				$result->a_image    = $answer->image;
 				$result->is_correct = $answer->is_correct;
+				$result->weight     = $answer->weight;
 				break;
 			case Question::TYPE_CHECKBOX:
 				$answer = isset($data['answer']) ? $data['answer'] : []; // has to be an array
@@ -189,7 +190,7 @@ class TestController extends BaseController
 					$answers = [];
 
 				$isThereACorrectAnswer = false;
-				$correctNum = 0;
+				$correctNum            = 0;
 				// есть ли хоть один правильный ответ?
 				foreach ($question->answers as $ans) {
 					if ($ans->is_correct) {
@@ -212,13 +213,18 @@ class TestController extends BaseController
 				} elseif ($isThereACorrectAnswer && count($answers) > 0 && count($answers) == $correctNum) {
 					// проверим, те ли ответы выбрал пользователь
 					$result->is_correct = true;
+					$result->weight = 0;
 					foreach ($question->answers as $ans) {
 						if (!$ans->is_correct) continue;
-						if (!in_array($ans->id, $answer))
+						if (!in_array($ans->id, $answer)) {
 							$result->is_correct = false;
+						}
 						$result->a_text .= $ans->text . ';';
 						$result->a_image = $ans->image;
+						$result->weight += $ans->weight;
 					}
+					if (!$result->is_correct)
+						$result->weight = 0;
 				}
 				break;
 			case Question::TYPE_STRING:
@@ -228,6 +234,7 @@ class TestController extends BaseController
 				} else {
 					$result->a_text     = trim($data['answer']);
 					$result->is_correct = true;
+					$result->weight     = 1;
 				}
 				break;
 		}

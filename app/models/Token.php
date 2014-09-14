@@ -48,4 +48,20 @@ class Token extends Eloquent
 		return $this->belongsTo('Test');
 	}
 
+	/**
+	 * Related Department
+	 */
+	public function department()
+	{
+		return $this->belongsTo('Department');
+	}
+
+	/**
+	 * Related Group
+	 */
+	public function group()
+	{
+		return $this->belongsTo('Group');
+	}
+
 }

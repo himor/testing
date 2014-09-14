@@ -24,6 +24,7 @@ class CreateResultTable extends Migration
 			$table->string('a_image', '255')->nullable();
 
 			$table->boolean('is_correct')->default(0);
+			$table->integer('weight')->unsigned();
 
 			$table->timestamps();
 
