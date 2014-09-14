@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a8c8785-c3ce-4e6b-ab58-1c4797c93467" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/test/token.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/tests/version.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/database/migrations/2014_09_13_064439_create_users_table.php" afterPath="$PROJECT_DIR$/app/database/migrations/2014_09_13_064439_create_users_table.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/database/migrations/2014_09_13_081738_create_department_table.php" afterPath="$PROJECT_DIR$/app/database/migrations/2014_09_13_081738_create_department_table.php" />
@@ -86,6 +86,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layout/test.blade.php" afterPath="$PROJECT_DIR$/app/views/layout/test.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/testing.iml" afterPath="$PROJECT_DIR$/.idea/testing.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layout/tests.blade.php" afterPath="$PROJECT_DIR$/app/views/layout/tests.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/test/token.blade.php" afterPath="$PROJECT_DIR$/app/views/test/token.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layout/users.blade.php" afterPath="$PROJECT_DIR$/app/views/layout/users.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vagrant.xml" afterPath="$PROJECT_DIR$/.idea/vagrant.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
@@ -112,10 +113,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="routes.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="routes.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="266" column="30" selection-start="5034" selection-end="5045" vertical-scroll-proportion="0.87281215" vertical-offset="3242" max-vertical-offset="4140">
+            <state line="211" column="33" selection-start="4311" selection-end="4325" vertical-scroll-proportion="-19.916666" vertical-offset="2687" max-vertical-offset="4290">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestsController.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/TestsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="135" column="30" selection-start="2919" selection-end="2919" vertical-scroll-proportion="1.890315" vertical-offset="405" max-vertical-offset="5115">
               <folding />
             </state>
           </provider>
@@ -134,7 +144,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/SecurityController.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_09_13_081738_create_department_table.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_09_13_081746_create_group_table.php" />
         <option value="$PROJECT_DIR$/app/controllers/DepartmentController.php" />
@@ -174,17 +183,18 @@
         <option value="$PROJECT_DIR$/app/views/layout/layout.blade.php" />
         <option value="$PROJECT_DIR$/app/models/Test.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_09_13_083445_create_test_table.php" />
-        <option value="$PROJECT_DIR$/app/views/tests/index.blade.php" />
         <option value="$PROJECT_DIR$/app/views/tests/create.blade.php" />
         <option value="$PROJECT_DIR$/app/models/User.php" />
         <option value="$PROJECT_DIR$/app/database/seeds/DatabaseSeeder.php" />
         <option value="$PROJECT_DIR$/app/views/tests/edit.blade.php" />
-        <option value="$PROJECT_DIR$/app/controllers/TestsController.php" />
-        <option value="$PROJECT_DIR$/app/routes.php" />
-        <option value="$PROJECT_DIR$/app/views/tests/show.blade.php" />
         <option value="$PROJECT_DIR$/app/controllers/TokenController.php" />
         <option value="$PROJECT_DIR$/app/views/test/token.blade.php" />
         <option value="$PROJECT_DIR$/app/controllers/TestController.php" />
+        <option value="$PROJECT_DIR$/app/routes.php" />
+        <option value="$PROJECT_DIR$/app/views/tests/show.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/tests/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/tests/version.blade.php" />
+        <option value="$PROJECT_DIR$/app/controllers/TestsController.php" />
       </list>
     </option>
   </component>
@@ -326,7 +336,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -501,11 +511,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/database/migrations/2014_09_13_083439_create_category_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="30" selection-start="490" selection-end="490" vertical-scroll-proportion="-16.875" vertical-offset="0" max-vertical-offset="555" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/layout/departments.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="0" selection-start="238" selection-end="238" vertical-scroll-proportion="0.2972561" vertical-offset="0" max-vertical-offset="656" />
@@ -721,23 +726,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tests/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="30" selection-start="459" selection-end="459" vertical-scroll-proportion="0.40089086" vertical-offset="0" max-vertical-offset="898">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/employees/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="118" column="14" selection-start="2945" selection-end="3100" vertical-scroll-proportion="0.76837415" vertical-offset="1080" max-vertical-offset="2640">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tests/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="18" selection-start="1085" selection-end="2194" vertical-scroll-proportion="0.7427617" vertical-offset="428" max-vertical-offset="1350">
           <folding />
         </state>
       </provider>
@@ -756,30 +747,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tests/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="14" selection-start="2487" selection-end="2487" vertical-scroll-proportion="0.64922047" vertical-offset="857" max-vertical-offset="1755">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/tests/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="645" selection-end="645" vertical-scroll-proportion="0.41759464" vertical-offset="0" max-vertical-offset="898">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/database/migrations/2014_09_13_083445_create_test_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="49" selection-start="494" selection-end="494" vertical-scroll-proportion="0.3507795" vertical-offset="0" max-vertical-offset="898">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/TestsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="194" column="8" selection-start="4111" selection-end="4111" vertical-scroll-proportion="0.30846325" vertical-offset="2633" max-vertical-offset="3555">
           <folding />
         </state>
       </provider>
@@ -828,14 +798,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/TestController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="42" selection-start="1229" selection-end="1229" vertical-scroll-proportion="-1.5554259" vertical-offset="2068" max-vertical-offset="2925">
+        <state line="119" column="0" selection-start="2665" selection-end="2665" vertical-scroll-proportion="2.082847" vertical-offset="0" max-vertical-offset="3045">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tests/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="18" selection-start="1237" selection-end="1237" vertical-scroll-proportion="-11.541667" vertical-offset="428" max-vertical-offset="1350">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tests/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="33" selection-start="1330" selection-end="1355" vertical-scroll-proportion="0.03267211" vertical-offset="857" max-vertical-offset="1755">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tests/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="0" selection-start="792" selection-end="792" vertical-scroll-proportion="0.7176196" vertical-offset="0" max-vertical-offset="857">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tests/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="41" selection-start="543" selection-end="543" vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="555">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/tests/version.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="33" selection-start="1145" selection-end="1145" vertical-scroll-proportion="0.31738624" vertical-offset="403" max-vertical-offset="1305">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="266" column="30" selection-start="5034" selection-end="5045" vertical-scroll-proportion="0.87281215" vertical-offset="3242" max-vertical-offset="4140">
+        <state line="211" column="33" selection-start="4311" selection-end="4325" vertical-scroll-proportion="-19.916666" vertical-offset="2687" max-vertical-offset="4290">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/TestsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="30" selection-start="2919" selection-end="2919" vertical-scroll-proportion="1.890315" vertical-offset="405" max-vertical-offset="5115">
           <folding />
         </state>
       </provider>

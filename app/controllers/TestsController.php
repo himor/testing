@@ -14,7 +14,10 @@ class TestsController extends BaseController
 	 */
 	public function indexAction()
 	{
-		$tests = Test::all();
+		$tests = DB::table('test')
+			->orderBy('name', 'asc')
+			->orderBy('version', 'desc')
+			->get();
 
 		return View::make('tests.index', ['tests' => $tests]);
 	}
@@ -44,6 +47,97 @@ class TestsController extends BaseController
 				'categories' => $selectedCategories,
 			]
 		);
+	}
+
+	/**
+	 * Создать новую версию теста
+	 *
+	 * @param $id
+	 */
+	public function versionAction($id)
+	{
+		$test = Test::find($id);
+
+		if (is_null($test))
+			return Redirect::route('tests.index')
+				->with('error', 'Incorrect test id');
+
+		$test->version = (int)$test->version + 1;
+
+		$categories           = Category::all();
+		$selectedCategories   = array();
+		$selectedCategories[] = 'Не выбрана';
+
+		foreach ($categories as $category) {
+			$selectedCategories[$category->id] = $category->name;
+		}
+
+		return View::make('tests.version', [
+				'test'       => $test,
+				'categories' => $selectedCategories,
+			]
+		);
+	}
+
+	/**
+	 * Сохранение новой версии теста
+	 */
+	public function storeVersionAction()
+	{
+		$data = Input::all();
+		$id   = $data['id'];
+		unset($data['id']);
+
+		$validation = Validator::make($data, Test::$rules);
+
+		if (!$validation->passes()) {
+			return Redirect::route('version.create', ['id' => $id])
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		}
+
+		if (!$data['category_id']) {
+			return Redirect::route('version.create', ['id' => $id])
+				->withInput()
+				->with('message', 'Укажите категорию теста.');
+		}
+
+		/**
+		 * Check name duplicates
+		 */
+		if (count(Test::where('name', $data['name'])
+			->where('version', (int)$data['version'])->get())
+		) {
+			/**
+			 * Такой тест существует, поменяем версию
+			 */
+			$data['version'] = (int)$data['version'] + 1;
+		}
+
+		$data['user_id'] = Auth::user()->getId();
+		$data['active']  = false;
+
+		$test = Test::create($data);
+
+		/**
+		 * Клонировать вопросы и ответы из предыдущего теста
+		 */
+		$questions = Question::where('test_id', $id)->get();
+		foreach ($questions as $q) {
+			$new = $q->replicate();
+			$new->test_id = $test->id;
+			$new->save();
+
+			$answers = Answer::where('question_id', $q->id)->get();
+			foreach ($answers as $a) {
+				$newa = $a->replicate();
+				$newa->question_id = $new->id;
+				$newa->save();
+			}
+		}
+
+		return Redirect::route('tests.show', $test->id);
 	}
 
 	/**
@@ -102,7 +196,17 @@ class TestsController extends BaseController
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		return View::make('tests.show', ['test' => $test]);
+		/**
+		 * Проверим, нет ли ответов по этому тесту
+		 */
+		$results = count(Result::where('test_id', $id)->get());
+
+		return View::make('tests.show', [
+				'test'    => $test,
+				'results' => $results
+
+			]
+		);
 	}
 
 	/**

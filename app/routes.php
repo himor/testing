@@ -208,7 +208,17 @@ Route::delete('admin/tests/{id}', [
 		'uses' => 'TestsController@deleteAction'
 	]
 );
-
+Route::get('admin/version/create/{id}', [
+		'as'   => 'version.create',
+		'uses' => 'TestsController@versionAction'
+	]
+);
+Route::post('admin/version', [
+		'as'     => 'version.store',
+		'before' => 'csrf',
+		'uses'   => 'TestsController@storeVersionAction'
+	]
+);
 /**
  * Question creation
  */

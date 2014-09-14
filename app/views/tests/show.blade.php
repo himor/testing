@@ -16,10 +16,16 @@
 <span>Created {{ $test->created_at }}</span>
 <span>Updated {{ $test->updated_at }}</span>
 
-<p><a href="{{ URL::route('tests.edit', $test->id) }}">edit</a></p>
+<p><a href="{{ URL::route('tests.edit', $test->id) }}">Редактировать</a></p>
+<p><a href="{{ URL::route('version.create', $test->id) }}">Создать новую версию</a></p>
+
 
 <p><a href="{{ URL::route('token.create', $test->id) }}" target="_blank">Отправить пользователю</a></p>
 
-<p><a href="#">добавить вопрос</a></p>
+@if ($results == 0)
+<p><a href="#">Добавить вопрос</a></p>
+@else
+<p><a href="#">Отобразить результаты</a></p>
+@endif
 
 @stop

@@ -118,6 +118,14 @@ class TestController extends BaseController
 			return Redirect::route('token.index', ['token' => $token->token]);
 		}
 
+		if (!$this->isTokenValid($token)) {
+			Session::forget('token_string');
+			$token->status = Token::TOKEN_STATUS_EXPIRED;
+			$token->save();
+
+			return Redirect::route('info')->with('message', 'Время теста истекло, ответ не засчитан');
+		}
+
 		$questionId  = Session::get('question_id', false);
 		$testAnswers = Session::get('test_answers', false);
 

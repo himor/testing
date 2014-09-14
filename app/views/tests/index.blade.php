@@ -30,7 +30,6 @@
 		<thead>
 			<th>#</th>
 			<th>Название</th>
-			<th>Добавлен</th>
 			<th>Действие</th>
 		</thead>
 		<tbody>
@@ -39,7 +38,6 @@
 				<tr>
 					<td><?php echo $i++; ?></td>
 					<td>{{ $item->name }}</td>
-					<td>@if ($item->created_at->format('U') > 0) {{ $item->created_at->format('d.m.Y H:i:s') }} @endif</td>
 					<td>
 
 					</td>
