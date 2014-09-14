@@ -44,6 +44,7 @@ class TestController extends BaseController
 				 * Ответы есть на все вопросы
 				 */
 				Session::forget('token_string');
+
 				return Redirect::route('info')->with('message', 'Тест завершен. Вы ответили на все вопросы.');
 			} else {
 				/**
@@ -77,7 +78,6 @@ class TestController extends BaseController
 		} else {
 			$question = Question::find($questions_[0]);
 		}
-
 
 		$answers_ = $question->answers;
 		$answers  = [];
@@ -127,9 +127,9 @@ class TestController extends BaseController
 		}
 
 		$questionId  = Session::get('question_id', false);
-		$testAnswers = Session::get('test_answers', false);
+		$testAnswers = Session::get('test_answers', []);
 
-		if (!$questionId || !$testAnswers || !is_numeric($questionId) || !is_array($testAnswers)) {
+		if (!$questionId || !is_numeric($questionId)) {
 			return Redirect::route('info')->with('message', 'Ошибка данных сессии.');
 		}
 
@@ -139,19 +139,6 @@ class TestController extends BaseController
 		}
 
 		$data = Input::all();
-		if (!$data['answer']) {
-			return Redirect::route('info')->with('message', 'Ожидается ответ.');
-		}
-
-		foreach ($testAnswers as $id => $hash) {
-			if ($hash == $data['answer']) {
-				$answer = Answer::find($id);
-			}
-		}
-
-		if (!$answer) {
-			return Redirect::route('info')->with('message', 'Такой ответ не найден.');
-		}
 
 		$result = new Result();
 
@@ -160,9 +147,90 @@ class TestController extends BaseController
 		$result->question_id = (int)$questionId;
 		$result->q_text      = $question->text;
 		$result->q_image     = $question->image;
-		$result->a_text      = $answer->text;
-		$result->a_image     = $answer->image;
-		$result->is_correct  = $answer->is_correct;
+
+		/**
+		 * Обработаем ответ в зависимости от типа
+		 */
+		switch ($question->type) {
+			case Question::TYPE_RADIO:
+				if (!isset($data['answer']) || !$data['answer']) {
+					return Redirect::route('info')->with('message', 'Ожидается ответ.');
+				}
+				foreach ($testAnswers as $id => $hash) {
+					if ($hash == $data['answer']) {
+						$answer = Answer::find($id);
+					}
+				}
+				if (!$answer) {
+					return Redirect::route('info')->with('message', 'Такой ответ не найден.');
+				}
+				$result->a_text     = $answer->text;
+				$result->a_image    = $answer->image;
+				$result->is_correct = $answer->is_correct;
+				break;
+			case Question::TYPE_CHECKBOX:
+				$answer = isset($data['answer']) ? $data['answer'] : []; // has to be an array
+				if (!is_array($answer)) {
+					return Redirect::route('info')->with('message', 'Ответ должен быть массивом.');
+				}
+
+				$answer_ = $answer; // we need to find real answer ids
+				$answer  = [];
+				foreach ($testAnswers as $id => $hash) {
+					foreach ($answer_ as $a_) {
+						if ($hash == $a_) {
+							$answer[] = Answer::find($id)->id;
+						}
+					}
+				}
+				if (!empty($answer))
+					$answers = DB::table('answer')->whereIn('id', $answer)->get(); // какие ответы выбрал пользователь
+				else
+					$answers = [];
+
+				$isThereACorrectAnswer = false;
+				$correctNum = 0;
+				// есть ли хоть один правильный ответ?
+				foreach ($question->answers as $ans) {
+					if ($ans->is_correct) {
+						$isThereACorrectAnswer = true;
+						$correctNum++;
+					}
+				}
+
+				$result->a_text = '';
+
+				if (!$isThereACorrectAnswer && count($answers) > 0) {
+					// правильных ответов нет, но пользователь что-то выбрал
+					$result->is_correct = false;
+				} elseif (!$isThereACorrectAnswer && count($answers) == 0) {
+					$result->is_correct = true;
+				} elseif ($isThereACorrectAnswer && count($answers) == 0) {
+					$result->is_correct = false;
+				} elseif ($isThereACorrectAnswer && count($answers) > 0 && count($answers) != $correctNum) {
+					$result->is_correct = false;
+				} elseif ($isThereACorrectAnswer && count($answers) > 0 && count($answers) == $correctNum) {
+					// проверим, те ли ответы выбрал пользователь
+					$result->is_correct = true;
+					foreach ($question->answers as $ans) {
+						if (!$ans->is_correct) continue;
+						if (!in_array($ans->id, $answer))
+							$result->is_correct = false;
+						$result->a_text .= $ans->text . ';';
+						$result->a_image = $ans->image;
+					}
+				}
+				break;
+			case Question::TYPE_STRING:
+				if (!isset($data['answer']) || !$data['answer']) {
+					$result->a_text     = '';
+					$result->is_correct = false;
+				} else {
+					$result->a_text     = trim($data['answer']);
+					$result->is_correct = true;
+				}
+				break;
+		}
 
 		$result->save();
 

@@ -23,7 +23,7 @@
 <p><a href="{{ URL::route('token.create', $test->id) }}" target="_blank">Отправить пользователю</a></p>
 
 @if ($results == 0)
-<p><a href="#">Добавить вопрос</a></p>
+<p><a href="{{ URL::route('question.create', $test->id) }}">Добавить вопрос</a></p>
 @else
 <p><a href="#">Отобразить результаты</a></p>
 @endif

@@ -219,11 +219,21 @@ Route::post('admin/version', [
 		'uses'   => 'TestsController@storeVersionAction'
 	]
 );
+
 /**
  * Question creation
  */
-
-
+Route::get('admin/question/create/{id}', [
+		'as'   => 'question.create',
+		'uses' => 'QuestionController@createAction'
+	]
+);
+Route::post('admin/question', [
+		'as'     => 'question.store',
+		'before' => 'csrf',
+		'uses'   => 'QuestionController@storeAction'
+	]
+);
 
 /**
  * Token initialization

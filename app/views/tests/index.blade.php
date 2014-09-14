@@ -30,6 +30,8 @@
 		<thead>
 			<th>#</th>
 			<th>Название</th>
+			<th>Версия</th>
+			<th>Категория</th>
 			<th>Действие</th>
 		</thead>
 		<tbody>
@@ -38,6 +40,9 @@
 				<tr>
 					<td><?php echo $i++; ?></td>
 					<td>{{ $item->name }}</td>
+					<td>{{ $item->version }}</td>
+					<td>{{ $item->category->name }}</td>
+
 					<td>
 
 					</td>

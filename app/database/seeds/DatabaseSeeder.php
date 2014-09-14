@@ -133,6 +133,7 @@ class DatabaseSeeder extends Seeder
 				'duration'    => 600,
 				'category_id' => 1,
 				'user_id'     => 1,
+				'active'      => 1,
 				'created_at'  => date('Y-m-d H:i:s')
 			]
 		);
@@ -202,7 +203,7 @@ class DatabaseSeeder extends Seeder
 			[
 				'id'         => 2,
 				'test_id'    => 1,
-				'type'       => Question::TYPE_RADIO,
+				'type'       => Question::TYPE_CHECKBOX,
 				'text'       => 'Где находится центр Вселенной?',
 				'created_at' => date('Y-m-d H:i:s')
 			]
@@ -225,7 +226,8 @@ class DatabaseSeeder extends Seeder
 				'id'          => 5,
 				'question_id' => 2,
 				'text'        => 'Во всём виноваты коммунисты',
-				'weight'      => 0,
+				'weight'      => 1,
+				'is_correct'  => 1,
 				'created_at'  => date('Y-m-d H:i:s')
 			]
 		);
@@ -241,17 +243,15 @@ class DatabaseSeeder extends Seeder
 		);
 
 		/**
-		 * Create a Result
+		 * Create a question
 		 */
-		DB::table('result')->insert(
+		DB::table('question')->insert(
 			[
-				'id'          => 1,
-				'question_id' => 2,
-				'test_id'     => 1,
-				'q_text'      => 'Где находится центр Вселенной?',
-				'a_text'      => 'Во всём виноват Госдеп',
-				'is_correct'  => 0,
-				'created_at'  => date('Y-m-d H:i:s')
+				'id'         => 3,
+				'test_id'    => 1,
+				'type'       => Question::TYPE_STRING,
+				'text'       => 'На какой планете вы живете?',
+				'created_at' => date('Y-m-d H:i:s')
 			]
 		);
 

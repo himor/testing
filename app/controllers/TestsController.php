@@ -14,10 +14,8 @@ class TestsController extends BaseController
 	 */
 	public function indexAction()
 	{
-		$tests = DB::table('test')
-			->orderBy('name', 'asc')
-			->orderBy('version', 'desc')
-			->get();
+		$tests = Test::orderBy('name', 'asc')
+			->orderBy('version', 'desc')->get();
 
 		return View::make('tests.index', ['tests' => $tests]);
 	}
@@ -112,7 +110,7 @@ class TestsController extends BaseController
 			/**
 			 * Такой тест существует, поменяем версию
 			 */
-			$data['version'] = (int)$data['version'] + 1;
+			$data['version'] = $this->getNextVersion($data['name']);
 		}
 
 		$data['user_id'] = Auth::user()->getId();
@@ -125,13 +123,13 @@ class TestsController extends BaseController
 		 */
 		$questions = Question::where('test_id', $id)->get();
 		foreach ($questions as $q) {
-			$new = $q->replicate();
+			$new          = $q->replicate();
 			$new->test_id = $test->id;
 			$new->save();
 
 			$answers = Answer::where('question_id', $q->id)->get();
 			foreach ($answers as $a) {
-				$newa = $a->replicate();
+				$newa              = $a->replicate();
 				$newa->question_id = $new->id;
 				$newa->save();
 			}
@@ -172,7 +170,7 @@ class TestsController extends BaseController
 			/**
 			 * Такой тест существует, поменяем версию
 			 */
-			$data['version'] = (int)$data['version'] + 1;
+			$data['version'] = $this->getNextVersion($data['name']);
 		}
 
 		$data['user_id'] = Auth::user()->getId();
@@ -293,7 +291,7 @@ class TestsController extends BaseController
 			/**
 			 * Такой тест существует, поменяем версию
 			 */
-			$data['version'] = (int)$data['version'] + 1;
+			$data['version'] = $this->getNextVersion($data['name']);
 		}
 
 		$test->update($data);
@@ -331,6 +329,24 @@ class TestsController extends BaseController
 		DB::table('test')->where('id', $id)->delete();
 
 		return Redirect::route('tests.index');
+	}
+
+	/**
+	 * Get next version for the test by its name
+	 *
+	 * @param $name
+	 *
+	 * @return int
+	 */
+	private function getNextVersion($name)
+	{
+		$tests = Test::where('name', $name)->get();
+		$max   = 0;
+		foreach ($tests as $test) {
+			$max = (int)$test->version > $max ? (int)$test->version : $max;
+		}
+
+		return ++$max;
 	}
 
 }

@@ -19,12 +19,30 @@
 
 <form method="post" action="{{ URL::route('test.store') }}">
 
-@foreach ($answers as $answer)
-<p>
-	<input type="radio" name="answer" value="{{ $answer->hash }}">
+	@if ($question->type == Question::TYPE_RADIO)
+	@foreach ($answers as $answer)
+	<p>
+		<input type="radio" name="answer" value="{{ $answer->hash }}">
+		{{ $answer->text }} ({{ $answer->hash }})
+	</p>
+	@endforeach
 
-	{{ $answer->text }} ({{ $answer->hash }})</p>
-@endforeach
+	@elseif ($question->type == Question::TYPE_STRING)
+	<p>
+		<input type="test" name="answer" value="">
+	</p>
+
+	@elseif ($question->type == Question::TYPE_CHECKBOX)
+	@foreach ($answers as $answer)
+	<p>
+		<input type="checkbox" name="answer[]" value="{{ $answer->hash }}">
+		{{ $answer->text }} ({{ $answer->hash }})
+	</p>
+	@endforeach
+
+	@endif
+
+
 
 	<input type="submit">
 
