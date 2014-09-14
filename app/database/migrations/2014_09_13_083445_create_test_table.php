@@ -20,12 +20,13 @@ class CreateTestTable extends Migration
 
 			$table->integer('type')->default(0);
 			$table->integer('duration')->default(0);
-			$table->string('version')->default('1.0');
+			$table->string('version')->default('1');
 
 			$table->integer('category_id')->unsigned()->nullable();
 			$table->integer('user_id')->unsigned()->nullable();
 
 			$table->boolean('active')->default(0);
+			$table->boolean('display_result')->default(0);
 
 			$table->timestamps();
 

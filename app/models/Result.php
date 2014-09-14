@@ -31,4 +31,12 @@ class Result extends Eloquent
 		return $this->belongsTo('Test');
 	}
 
+	/**
+	 * Related Question
+	 */
+	public function question()
+	{
+		return $this->belongsTo('Question');
+	}
+
 }

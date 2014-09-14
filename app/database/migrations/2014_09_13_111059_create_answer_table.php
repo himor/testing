@@ -15,9 +15,8 @@ class CreateAnswerTable extends Migration
 		Schema::create('answer', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('question_id')->unsigned();
-			$table->integer('type')->default(0);
 			$table->text('text');
-			$table->string('image')->nullable();
+			$table->string('image', '255')->nullable();
 			$table->integer('weight')->default(0);
 			$table->boolean('is_correct')->default(0);
 

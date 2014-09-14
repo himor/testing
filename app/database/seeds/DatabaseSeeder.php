@@ -2,7 +2,6 @@
 
 class DatabaseSeeder extends Seeder
 {
-
 	/**
 	 * Run the database seeds.
 	 *
@@ -150,6 +149,112 @@ class DatabaseSeeder extends Seeder
 				'created_at' => date('Y-m-d H:i:s')
 			]
 		);
+
+		/**
+		 * Create a question
+		 */
+		DB::table('question')->insert(
+			[
+				'id'         => 1,
+				'test_id'    => 1,
+				'type'       => Question::TYPE_RADIO,
+				'text'       => 'Кто подставил кролика Роджера?',
+				'created_at' => date('Y-m-d H:i:s')
+			]
+		);
+
+		/**
+		 * Create a few answers
+		 */
+		DB::table('answer')->insert(
+			[
+				'id'          => 1,
+				'question_id' => 1,
+				'text'        => 'Во всём виноват Госдеп',
+				'weight'      => 0,
+				'created_at'  => date('Y-m-d H:i:s')
+			]
+		);
+		DB::table('answer')->insert(
+			[
+				'id'          => 2,
+				'question_id' => 1,
+				'text'        => 'Во всём виноваты коммунисты',
+				'weight'      => 0,
+				'created_at'  => date('Y-m-d H:i:s')
+			]
+		);
+		DB::table('answer')->insert(
+			[
+				'id'          => 3,
+				'question_id' => 1,
+				'text'        => 'Он сам себя подставил',
+				'weight'      => 1,
+				'is_correct'  => 1,
+				'created_at'  => date('Y-m-d H:i:s')
+			]
+		);
+
+		/**
+		 * Create a question
+		 */
+		DB::table('question')->insert(
+			[
+				'id'         => 2,
+				'test_id'    => 1,
+				'type'       => Question::TYPE_RADIO,
+				'text'       => 'Где находится центр Вселенной?',
+				'created_at' => date('Y-m-d H:i:s')
+			]
+		);
+
+		/**
+		 * Create a few answers
+		 */
+		DB::table('answer')->insert(
+			[
+				'id'          => 4,
+				'question_id' => 2,
+				'text'        => 'Во всём виноват Госдеп',
+				'weight'      => 0,
+				'created_at'  => date('Y-m-d H:i:s')
+			]
+		);
+		DB::table('answer')->insert(
+			[
+				'id'          => 5,
+				'question_id' => 2,
+				'text'        => 'Во всём виноваты коммунисты',
+				'weight'      => 0,
+				'created_at'  => date('Y-m-d H:i:s')
+			]
+		);
+		DB::table('answer')->insert(
+			[
+				'id'          => 6,
+				'question_id' => 2,
+				'text'        => 'У Вселенной нет центра',
+				'weight'      => 1,
+				'is_correct'  => 1,
+				'created_at'  => date('Y-m-d H:i:s')
+			]
+		);
+
+		/**
+		 * Create a Result
+		 */
+		DB::table('result')->insert(
+			[
+				'id'          => 1,
+				'question_id' => 2,
+				'test_id'     => 1,
+				'q_text'      => 'Где находится центр Вселенной?',
+				'a_text'      => 'Во всём виноват Госдеп',
+				'is_correct'  => 0,
+				'created_at'  => date('Y-m-d H:i:s')
+			]
+		);
+
 	}
 
 }

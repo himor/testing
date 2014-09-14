@@ -169,6 +169,53 @@ Route::delete('admin/groups/{id}', [
 );
 
 /**
+ * Test creation
+ */
+Route::get('admin/tests', [
+		'as'   => 'tests.index',
+		'uses' => 'TestsController@indexAction'
+	]
+);
+Route::get('admin/tests/create', [
+		'as'   => 'tests.create',
+		'uses' => 'TestsController@createAction'
+	]
+);
+Route::post('admin/tests', [
+		'as'     => 'tests.store',
+		'before' => 'csrf',
+		'uses'   => 'TestsController@storeAction'
+	]
+);
+Route::get('admin/tests/{id}', [
+		'as'   => 'tests.show',
+		'uses' => 'TestsController@showAction'
+	]
+);
+Route::get('admin/tests/{id}/edit', [
+		'as'   => 'tests.edit',
+		'uses' => 'TestsController@editAction'
+	]
+);
+Route::put('admin/tests/{id}', [
+		'as'     => 'tests.update',
+		'before' => 'csrf',
+		'uses'   => 'TestsController@updateAction'
+	]
+);
+Route::delete('admin/tests/{id}', [
+		'as'   => 'tests.destroy',
+		'uses' => 'TestsController@deleteAction'
+	]
+);
+
+/**
+ * Question creation
+ */
+
+
+
+/**
  * Token initialization
  */
 Route::get('/start', [
@@ -192,12 +239,17 @@ Route::get('/test', [
 	]
 );
 
+Route::post('/test', [
+		'as'   => 'test.store',
+		'uses' => 'TestController@storeAction'
+	]
+);
+
 Route::get('/test/check_status', [
 		'as'   => 'check_status',
 		'uses' => 'TestController@checkTime'
 	]
 );
-
 
 /**
  * Tokens

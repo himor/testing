@@ -15,18 +15,20 @@ class CreateResultTable extends Migration
 		Schema::create('result', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('test_id')->unsigned();
+			$table->integer('question_id')->unsigned();
 			$table->string('token', '100');
 
 			$table->text('q_text');
-			$table->string('q_image')->nullable();
+			$table->string('q_image', '255')->nullable();
 			$table->text('a_text');
-			$table->string('a_image')->nullable();
+			$table->string('a_image', '255')->nullable();
 
 			$table->boolean('is_correct')->default(0);
 
 			$table->timestamps();
 
 			$table->foreign('test_id')->references('id')->on('test');
+			$table->foreign('question_id')->references('id')->on('question');
 		});
 	}
 

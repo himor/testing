@@ -14,6 +14,8 @@ class Answer extends Eloquent
 	 */
 	protected $table = 'answer';
 
+	public $hash = '';
+
 	/**
 	 * Validation rules
 	 */
@@ -28,7 +30,13 @@ class Answer extends Eloquent
 	 */
 	public function question()
 	{
-		return $this->belongsTo('question');
+		return $this->belongsTo('Question');
+	}
+
+	public function withHash()
+	{
+		$this->hash = $this->question->test->id . '-' . substr(md5($this->text . microtime()), 0, 6);
+		return $this;
 	}
 
 }

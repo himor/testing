@@ -21,7 +21,7 @@ class Test extends Eloquent
 	 * Validation rules
 	 */
 	public static $rules = [
-		//'name' => 'required|min:2',
+		'name' => 'required|min:2',
 	];
 
 	protected $guarded = ['id'];

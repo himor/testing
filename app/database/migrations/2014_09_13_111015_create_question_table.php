@@ -17,7 +17,7 @@ class CreateQuestionTable extends Migration
 			$table->integer('test_id')->unsigned();
 			$table->integer('type')->default(0);
 			$table->text('text');
-			$table->string('image')->nullable();
+			$table->string('image', '255')->nullable();
 
 			$table->timestamps();
 
