@@ -289,9 +289,21 @@ Route::post('/test', [
 	]
 );
 
+/**
+ * Ajax - check test time
+ */
 Route::get('/test/check_status', [
 		'as'   => 'check_status',
 		'uses' => 'TestController@checkTime'
+	]
+);
+
+/**
+ * Ajax - mark result as correct
+ */
+Route::get('admin/test/result/correct/{id}', [
+		'as'   => 'correct_result',
+		'uses' => 'ResultController@resultCorrect'
 	]
 );
 

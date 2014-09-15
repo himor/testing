@@ -141,6 +141,42 @@ class ResultController extends BaseController
 			]
 		);
 	}
+
+	/**
+	 * Mark single answer as correct by id
+	 *
+	 * @param $id
+	 *
+	 * @return mixed
+	 */
+	public function resultCorrect($id)
+	{
+		$result = Result::find($id);
+		$data = Input::all();
+
+		if (is_null($result))
+			return Response::json(['error' => 'Result not found'], 400);
+
+		$test = $result->test;
+
+		if (is_null($test) || Auth::user()->getId() != $test->user_id)
+			return Response::json(['error' => 'Access denied'], 400);
+
+		$result->is_correct = $result->is_correct ? false : true;
+
+		if ($result->is_correct) {
+			$result->weight = (isset($data['weight']) && $data['weight']) ? (int)$data['weight'] : 1;
+		} else {
+			$result->weight = 0;
+		}
+
+		return Response::json(
+			[
+				'status' => $result->is_correct,
+				'weight' => $result->weight,
+			]
+		);
+	}
 }
 
 
