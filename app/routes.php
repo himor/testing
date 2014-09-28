@@ -26,6 +26,11 @@ Route::get('admin', [
 	]
 );
 
+Route::group(array('prefix' => 'admin'), function()
+{
+	Assets::add('admin');
+});
+
 /**
  * Administering users
  */

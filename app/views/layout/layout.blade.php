@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-        <?php //echo Assets::css(); ?>
+        <?php echo Assets::css(); ?>
     </head>
     <body>
     	@if (Auth::check())
@@ -90,6 +90,6 @@
     			</div>
     		</div>
     	</main>
-        <?php //echo Assets::js(); ?>
+        <?php echo Assets::js(); ?>
     </body>
 </html>
