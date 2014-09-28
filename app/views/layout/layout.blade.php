@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <base href="<?php echo URL::to('/'); ?>">
-        <title>Управление | Схема офиса CityAds</title>
+        <title>Управление | Тестирование CityAds</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -20,21 +20,16 @@
 						<nav class="navbar navbar-default" role="navigation">
 					  		<div class="container-fluid">
 							    <div class="navbar-header">
-							      	<a class="navbar-brand" href="{{ URL::route('admin') }}">CityAds Map</a>
+							      	<a class="navbar-brand" href="{{ URL::route('admin') }}">CityAds Tests</a>
 							    </div>
 					    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					      			<form class="navbar-form navbar-left" role="search">
-					        			<div class="form-group" style="position: relative;">
-					          				<input id="autocomplete" type="text" class="form-control" placeholder="Поиск сотрудника">
-					        			</div>
-					      			</form>
 					      			<ul class="nav navbar-nav">
-					        			@if (Route::currentRouteName() == 'employees.index')
+					        			@if (Route::currentRouteName() == 'tests.index')
 					        			<li class="active">
 					        			@else
 					        			<li>
 					        			@endif
-					        				<a href="">Сотрудники</a>
+					        				<a href="{{ URL::route('tests.index') }}">Тесты</a>
 					        			</li>
 					        			@if (Route::currentRouteName() == 'users.index')
 					        			<li class="active">
@@ -48,7 +43,6 @@
 				          					<ul class="dropdown-menu" role="menu">
 				          						<li><a href="{{ URL::route('departments.index') }}">Департаменты</a></li>
 												<li><a href="{{ URL::route('groups.index') }}">Отделы</a></li>
-									            <li><a href="{{ URL::route('tests.index') }}">Тесты</a></li>
 				          					</ul>
 					        			</li>
 					      			</ul>
