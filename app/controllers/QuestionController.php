@@ -93,7 +93,7 @@ class QuestionController extends BaseController
 		/**
 		 * Create answers
 		 */
-		for ($i = 1; $i < $num; $i++) {
+		for ($i = 1; $i <= $num; $i++) {
 			if (!isset($data['a_' . $i . '_text']) || !trim($data['a_' . $i . '_text']))
 				continue;
 			$answer              = new Answer();

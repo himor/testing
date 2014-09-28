@@ -18,75 +18,120 @@
 @stop
 
 @section('content')
-	<div class="row">
-		<div class="col-md-4">
-			{{ Form::model($question, array('route' => array('question.store'), 'autocomplete' => 'off')) }}
-
-			@if ($errors->any())
-			<div class="panel panel-danger">
-				@if (Session::has('message'))
-				<div class="panel-heading">{{ Session::get('message') }}</div>
-				@else
-			  	<div class="panel-heading">Ошибки</div>
-			  	@endif
-			  	<div class="panel-body">
-					{{ implode('', $errors->all('<p class="text-danger">:message</p>')) }}
-			  	</div>
-			</div>
-			@else
-				@if (Session::has('message'))
-				<div class="panel panel-info">
-					<div class="panel-heading">Сообщение</div>
-					<div class="panel-body">
-						{{ Session::get('message') }}
-					</div>
+	{{ Form::model($question, array('route' => array('question.store'), 'autocomplete' => 'off')) }}
+		<div class="row">
+			<div class="col-md-12">
+				@if ($errors->any())
+				<div class="panel panel-danger">
+					@if (Session::has('message'))
+					<div class="panel-heading">{{ Session::get('message') }}</div>
+					@else
+				  	<div class="panel-heading">Ошибки</div>
+				  	@endif
+				  	<div class="panel-body">
+						{{ implode('', $errors->all('<p class="text-danger">:message</p>')) }}
+				  	</div>
 				</div>
+				@else
+					@if (Session::has('message'))
+					<div class="panel panel-info">
+						<div class="panel-heading">Сообщение</div>
+						<div class="panel-body">
+							{{ Session::get('message') }}
+						</div>
+					</div>
+					@endif
 				@endif
-			@endif
-
-			{{ Form::hidden('test_id'); }}
-
-			<div class="form-group">
-				{{ Form::label('text', 'Текст вопроса:'); }}
-				{{ Form::text('text', null, array('class' => 'form-control')) }}
 			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">	
+				{{ Form::hidden('test_id'); }}
 
-			<div class="form-group">
-				{{ Form::label('type', 'Тип вопроса'); }}
-				{{ Form::radio('type', Question::TYPE_RADIO, true) }} Простой переключатель
-				{{ Form::radio('type', Question::TYPE_CHECKBOX, false) }} Несколько возможных ответов
-				{{ Form::radio('type', Question::TYPE_STRING, false) }} Текстовый ответ
+				<div class="form-group">
+					{{ Form::label('text', 'Текст вопроса:'); }}
+					{{ Form::textarea('text', null, array('class' => 'form-control')) }}
+				</div>
+
+				<div class="form-group">
+					{{ Form::label('type', 'Тип вопроса'); }}
+					<div class="radio">
+						<label>{{ Form::radio('type', Question::TYPE_RADIO, true, array('class' => '_answer_type')) }} Простой переключатель</label>
+					</div>
+					<div class="radio">
+						<label>{{ Form::radio('type', Question::TYPE_CHECKBOX, false, array('class' => '_answer_type')) }} Несколько возможных ответов</label>
+					</div>
+					<div class="radio">
+						<label>{{ Form::radio('type', Question::TYPE_STRING, false, array('class' => '_answer_type')) }} Текстовый ответ</label>
+					</div>
+				</div>	
 			</div>
-
-			<hr />
-
-			<div>
-
-				<input type="hidden" name="number_of_answers" value="2" />
-
-				<p>Варианты ответа</p>
-
+			<div class="col-md-6">
+				<h4>Варианты ответа: <button type="button" class="btn btn-primary btn-xs" id="add_answer">Добавить</button></h4>
+				<hr />
+				<div class="form-group" id="answers"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				{{ Form::hidden('number_of_answers', false, array('id' => 'number_of_answers')); }}
+				<hr />
+				<div class="form-group">
+					{{ Form::submit('Сохранить', array('class' => 'btn btn-success')) }}
+				</div>
+			</div>
+		</div>
+		<script id="answer_radio" type="text/template">
+			<div class="_answer">
+				<h5><mark>Ответ №{$id}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
 				<div class="form-group">
 					<label>Текст ответа</label>
-					<input type="text" name="a_1_text" value="" />
+					<input type="text" name="a_{$id}_text" value="" class="form-control" />
 				</div>
-
 				<div class="form-group">
 					<label>Вес ответа</label>
-					<input type="text" name="a_1_weight" value="0" />
+					<input type="text" name="a_{$id}_weight" value="0" class="form-control" />
 				</div>
-
+				<div class="radio">
+					<label>
+						<input type="radio" name="a_0_correct" /> Правильный ответ
+					</label>
+				</div>
+				<hr />
+			</div>
+		</script>
+		<script id="answer_checkbox" type="text/template">
+			<div class="_answer">
+				<h5><mark>Ответ №{$id}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
 				<div class="form-group">
-					<label>Правильный ответ</label>
-					<input type="checkbox" name="a_1_correct" value="1" />
+					<label>Текст ответа</label>
+					<input type="text" name="a_{$id}_text" value="" class="form-control" />
 				</div>
-
+				<div class="form-group">
+					<label>Вес ответа</label>
+					<input type="text" name="a_{$id}_weight" value="0" class="form-control" />
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="a_{$id}_correct" /> Правильный ответ
+					</label>
+				</div>
+				<hr />
 			</div>
-
-			<div class="form-group">
-				{{ Form::submit('Сохранить', array('class' => 'btn btn-success')) }}
+		</script>
+		<script id="answer_text" type="text/template">
+			<div class="_answer">
+				<h5><mark>Текстовый ответ</mark></h5>
+				<div class="form-group">
+					<label>Текст ответа</label>
+					<input type="text" name="a_{$id}_text" value="" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>Вес ответа</label>
+					<input type="text" name="a_{$id}_weight" value="0" class="form-control" />
+				</div>
+				<hr />
 			</div>
-			{{ Form::close() }}
-		</div>
-	</div>
+		</script>
+	{{ Form::close() }}
 @stop

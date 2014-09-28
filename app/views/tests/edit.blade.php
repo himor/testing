@@ -89,10 +89,16 @@
 		@if ($results == 0)
 		<div class="form-group">
 			{{ Form::label('type', 'Тип теста'); }}
-			{{ Form::radio('type', Test::TEST_TYPE_SUMMA, true) }} Суммировать
-			баллы в зависимости от ответов на вопросы
-			{{ Form::radio('type', Test::TEST_TYPE_PSYCHO, false) }} "Тест
-			принадлежности"
+			<div class="radio">
+				<label>
+					{{ Form::radio('type', Test::TEST_TYPE_SUMMA, true) }} Суммировать баллы в зависимости от ответов на вопросы
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					{{ Form::radio('type', Test::TEST_TYPE_PSYCHO, false) }} «Тест принадлежности»
+				</label>
+			</div>
 		</div>
 		@endif
 

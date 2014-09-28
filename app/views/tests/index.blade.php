@@ -17,9 +17,7 @@
 
 @section('content')
 	@if (Session::has('error'))
-	<div class="error">
-		<p>{{ Session::get('error') }}</p>
-	</div>
+		<div class="alert alert-danger" role="alert">{{ Session::get('error') }}</div>
 	@endif
 
 	@if (Session::has('info'))
@@ -38,13 +36,17 @@
 			<?php $i = 1; ?>
 			@foreach ($tests as $item)
 				<tr>
-					<td><?php echo $i++; ?></td>
-					<td>{{ $item->name }}</td>
+					<td>{{ $i++ }}</td>
+					<td><a href="{{ URL::route('tests.show', $item->id) }}">{{ $item->name }}</a></td>
 					<td>{{ $item->version }}</td>
 					<td>{{ $item->category->name }}</td>
-
 					<td>
-
+						<a href="{{ URL::route('tests.show', $item->id) }}" class="btn btn-default btn-xs">
+							<span class="glyphicon glyphicon-eye-open"></span>
+						</a>
+						<a href="{{ URL::route('tests.edit', $item->id) }}" class="btn btn-default btn-xs">
+							<span class="glyphicon glyphicon-cog"></span>
+						</a>
 					</td>
 				</tr>
 			@endforeach

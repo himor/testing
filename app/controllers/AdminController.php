@@ -12,7 +12,7 @@ class AdminController extends BaseController
 		/**
 		 * На какой роут мы редидектим при входе в админку
 		 */
-		return Redirect::route('users.index');
+		return Redirect::route('tests.index');
 	}
 
 }

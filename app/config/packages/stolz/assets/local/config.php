@@ -76,8 +76,8 @@ return array(
 		],
 		'admin' => [
 			'vendor/jquery-1.11.1.min.js', 
-			'dashboard.js',
 			'bootstrap',
+			'dashboard.js',
 			'dashboard.css'
 		]
 	),
