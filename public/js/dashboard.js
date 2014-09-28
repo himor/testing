@@ -58,7 +58,7 @@ $(function () {
 					});
 				});
 			} else {
-				alert('Для данного типа вопроса должно быть не менее 2 ответов')
+				alert('Для данного типа вопроса должно быть не менее 2 ответов');
 			}
 		});
 
@@ -77,12 +77,7 @@ $(function () {
 			}
 		});
 
-		// По-умолчанию добавляем первый ответ
-
-		$('._answer_type:checked').click();
-
-		//_addAnswer(+$('._answer_type:checked').val());
-		
+		$('._answer_type:checked').click();		
 
 		// Клик на добавление нового ответа
 		add.on('click', _addAnswer);

@@ -6,6 +6,8 @@
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-uglify": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-copy": "latest",
     "grunt-contrib-cssmin": "latest",
     "grunt-contrib-imagemin": "latest",
     "grunt-contrib-clean": "latest"
