@@ -175,6 +175,47 @@ Route::delete('admin/groups/{id}', [
 );
 
 /**
+ * Categories
+ */
+Route::get('admin/categories', [
+		'as'   => 'categories.index',
+		'uses' => 'CategoriesController@indexAction'
+	]
+);
+Route::get('admin/categories/create', [
+		'as'   => 'categories.create',
+		'uses' => 'CategoriesController@createAction'
+	]
+);
+Route::post('admin/categories', [
+		'as'     => 'categories.store',
+		'before' => 'csrf',
+		'uses'   => 'CategoriesController@storeAction'
+	]
+);
+Route::get('admin/categories/{id}', [
+		'as'   => 'categories.show',
+		'uses' => 'CategoriesController@showAction'
+	]
+);
+Route::get('admin/categories/{id}/edit', [
+		'as'   => 'categories.edit',
+		'uses' => 'CategoriesController@editAction'
+	]
+);
+Route::put('admin/categories/{id}', [
+		'as'     => 'categories.update',
+		'before' => 'csrf',
+		'uses'   => 'CategoriesController@updateAction'
+	]
+);
+Route::delete('admin/categories/{id}', [
+		'as'   => 'categories.destroy',
+		'uses' => 'CategoriesController@deleteAction'
+	]
+);
+
+/**
  * Test creation
  */
 Route::get('admin/tests', [
