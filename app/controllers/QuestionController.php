@@ -125,7 +125,31 @@ class QuestionController extends BaseController
 	 */
 	public function editAction($id)
 	{
+		$question = Question::find($id);
 
+		if (is_null($question))
+			return Redirect::route('tests.index')
+				->with('error', 'Incorrect question id');
+
+		$test = $question->test;
+
+		if (Auth::user()->getId() != $test->user_id)
+			return Redirect::route('tests.index')
+				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+
+		/**
+		 * Проверим, нет ли ответов по этому тесту
+		 */
+		if (count(Result::where('test_id', $test->id)->get())) {
+			return Redirect::route('tests.index')
+				->with('error', 'Нельзя редактировать тест, на который есть ответы');
+		}
+
+		return View::make('question.edit', [
+				'test'     => $test,
+				'question' => $question,
+			]
+		);
 	}
 
 	/**
@@ -133,7 +157,8 @@ class QuestionController extends BaseController
 	 */
 	public function updateAction()
 	{
-
+		// обновление данных вопроса и ответов
+		die('undone');
 	}
 
 	/**
