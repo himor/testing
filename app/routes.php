@@ -281,6 +281,22 @@ Route::post('admin/question', [
 		'uses'   => 'QuestionController@storeAction'
 	]
 );
+Route::get('admin/question/edit/{id}', [
+		'as'   => 'question.edit',
+		'uses' => 'QuestionController@editAction'
+	]
+);
+Route::put('admin/question', [
+		'as'     => 'question.update',
+		'before' => 'csrf',
+		'uses'   => 'QuestionController@updateAction'
+	]
+);
+Route::delete('admin/question/{id}', [
+		'as'   => 'question.destroy',
+		'uses' => 'QuestionController@deleteAction'
+	]
+);
 
 /**
  * Test results

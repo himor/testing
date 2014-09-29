@@ -6,7 +6,7 @@ var answers = $('#answers'),
 	num = $('#number_of_answers'),
 	count = 0;
 
-/** 
+/**
  * Добавление нового вопроса по типу
  *
  * @function _addAnswer
@@ -38,7 +38,7 @@ var _addAnswer = function (type) {
 };
 
 $(function () {
-	if (answers.length) {	
+	if (answers.length) {
 
 		// Клик на удаление имеющегося ответа
 		$(document).on('click', '._remove_answer', function (e) {
@@ -53,8 +53,12 @@ $(function () {
 					var el = $(element);
 					el.find('mark').html('Ответ №' + (i+1));
 					el.find('input').each(function (n, input) {
-						var oldName = input.getAttribute('name');
-						input.setAttribute('name', oldName.replace(/[0-9]+/, (i+1)));
+                        if ( $(input).attr('type') === 'radio' ) {
+                            $(input).val(i+1);
+                        } else {
+                            var oldName = input.getAttribute('name');
+                            input.setAttribute('name', oldName.replace(/[0-9]+/, (i+1)));
+                        }
 					});
 				});
 			} else {
@@ -77,7 +81,7 @@ $(function () {
 			}
 		});
 
-		$('._answer_type:checked').click();		
+		$('._answer_type:checked').click();
 
 		// Клик на добавление нового ответа
 		add.on('click', _addAnswer);

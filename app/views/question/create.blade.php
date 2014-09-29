@@ -45,7 +45,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6">	
+			<div class="col-md-6">
 				{{ Form::hidden('test_id'); }}
 
 				<div class="form-group">
@@ -64,7 +64,7 @@
 					<div class="radio">
 						<label>{{ Form::radio('type', Question::TYPE_STRING, false, array('class' => '_answer_type')) }} Текстовый ответ</label>
 					</div>
-				</div>	
+				</div>
 			</div>
 			<div class="col-md-6">
 				<h4>Варианты ответа: <button type="button" class="btn btn-primary btn-xs" id="add_answer">Добавить</button></h4>
@@ -94,7 +94,7 @@
 				</div>
 				<div class="radio">
 					<label>
-						<input type="radio" name="a_0_correct" /> Правильный ответ
+						<input type="radio" name="a_0_correct" value="{$id}" /> Правильный ответ
 					</label>
 				</div>
 				<hr />
@@ -121,16 +121,7 @@
 		</script>
 		<script id="answer_text" type="text/template">
 			<div class="_answer">
-				<h5><mark>Текстовый ответ</mark></h5>
-				<div class="form-group">
-					<label>Текст ответа</label>
-					<input type="text" name="a_{$id}_text" value="" class="form-control" />
-				</div>
-				<div class="form-group">
-					<label>Вес ответа</label>
-					<input type="text" name="a_{$id}_weight" value="0" class="form-control" />
-				</div>
-				<hr />
+				Для текстового вопроса не предусмотрены варианты ответа
 			</div>
 		</script>
 	{{ Form::close() }}

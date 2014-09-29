@@ -52,7 +52,7 @@ class QuestionController extends BaseController
 	public function storeAction()
 	{
 		$data = Input::all();
-		$num  = $data['number_of_answers'];
+		$num  = (int)$data['number_of_answers'];
 
 		$test = Test::find($data['test_id']);
 
@@ -85,7 +85,7 @@ class QuestionController extends BaseController
 
 		$question          = new Question();
 		$question->text    = $data['text'];
-		$question->type    = $data['type'];
+		$question->type    = $data['type'] ? $data['type'] : Question::TYPE_STRING;
 		$question->test_id = $test->id;
 
 		$question->save();
@@ -100,7 +100,11 @@ class QuestionController extends BaseController
 			$answer->question_id = $question->id;
 			$answer->text        = trim($data['a_' . $i . '_text']);
 			$answer->weight      = (int)$data['a_' . $i . '_weight'];
-			$answer->is_correct  = isset($data['a_' . $i . '_correct']) ? true : false;
+			if ($question->type == Question::TYPE_CHECKBOX) {
+				$answer->is_correct = isset($data['a_' . $i . '_correct']) ? true : false;
+			} elseif ($question->type == Question::TYPE_RADIO) {
+				$answer->is_correct = (isset($data['a_0_correct']) && $data['a_0_correct'] == $i) ? true : false;
+			}
 
 			if ($answer->is_correct && !$answer->weight)
 				$answer->weight = 1;
@@ -112,6 +116,55 @@ class QuestionController extends BaseController
 		}
 
 		return Redirect::route('tests.show', $test->id);
+	}
+
+	/**
+	 * Редактирование вопроса
+	 *
+	 * @param $id
+	 */
+	public function editAction($id)
+	{
+
+	}
+
+	/**
+	 * Сохранение изменений в вопросе
+	 */
+	public function updateAction()
+	{
+
+	}
+
+	/**
+	 * Удаление вопроса
+	 *
+	 * @param $id
+	 */
+	public function deleteAction($id)
+	{
+		$question = Question::find($id);
+
+		if (is_null($question))
+			return Redirect::route('tests.index')
+				->with('error', 'Incorrect question id');
+
+		$test = $question->test;
+
+		if (Auth::user()->getId() != $test->user_id)
+			return Redirect::route('tests.index')
+				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+
+		/**
+		 * Проверим, нет ли ответов по этому тесту
+		 */
+		if (count(Result::where('test_id', $test->id)->get())) {
+			return Redirect::route('tests.index')
+				->with('error', 'Нельзя редактировать тест, на который есть ответы');
+		}
+
+		DB::table('question')->where('id', $id)->delete();
+		return Redirect::route('tests.index');
 	}
 
 }
