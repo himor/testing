@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a8c8785-c3ce-4e6b-ab58-1c4797c93467" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/question/edit.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/public/fonts/glyphicons-halflings-regular.eot" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/public/fonts/glyphicons-halflings-regular.ttf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/public/fonts/glyphicons-halflings-regular.woff" />
@@ -72,6 +71,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/category/edit.blade.php" afterPath="$PROJECT_DIR$/app/views/category/edit.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/department/edit.blade.php" afterPath="$PROJECT_DIR$/app/views/department/edit.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/group/edit.blade.php" afterPath="$PROJECT_DIR$/app/views/group/edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/question/edit.blade.php" afterPath="$PROJECT_DIR$/app/views/question/edit.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/specialty/edit.blade.php" afterPath="$PROJECT_DIR$/app/views/specialty/edit.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/tests/edit.blade.php" afterPath="$PROJECT_DIR$/app/views/tests/edit.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layout/employees.blade.php" afterPath="$PROJECT_DIR$/app/views/layout/employees.blade.php" />
@@ -155,7 +155,7 @@
       <file leaf-file-name="QuestionController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/QuestionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="160" column="22" selection-start="3985" selection-end="3985" vertical-scroll-proportion="0.4988864" vertical-offset="1952" max-vertical-offset="3000">
+            <state line="193" column="32" selection-start="5007" selection-end="5007" vertical-scroll-proportion="-0.28619152" vertical-offset="3152" max-vertical-offset="4050">
               <folding />
             </state>
           </provider>
@@ -164,7 +164,7 @@
       <file leaf-file-name="routes.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="296" column="44" selection-start="6238" selection-end="6238" vertical-scroll-proportion="0.0" vertical-offset="3982" max-vertical-offset="5775">
+            <state line="296" column="44" selection-start="6238" selection-end="6238" vertical-scroll-proportion="-19.083334" vertical-offset="3982" max-vertical-offset="5775">
               <folding />
             </state>
           </provider>
@@ -871,20 +871,6 @@
         <state line="55" column="24" selection-start="1277" selection-end="1277" vertical-scroll-proportion="0.43058568" vertical-offset="428" max-vertical-offset="1410" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/question/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="22" selection-start="3200" selection-end="3200" vertical-scroll-proportion="0.41536748" vertical-offset="1112" max-vertical-offset="2010">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="296" column="44" selection-start="6238" selection-end="6238" vertical-scroll-proportion="0.0" vertical-offset="3982" max-vertical-offset="5775">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Question.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="24" selection-start="557" selection-end="561" vertical-scroll-proportion="0.4844098" vertical-offset="0" max-vertical-offset="898">
@@ -899,26 +885,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/question/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="32" selection-start="97" selection-end="97" vertical-scroll-proportion="0.066815145" vertical-offset="0" max-vertical-offset="2010">
+        <state line="49" column="33" selection-start="1298" selection-end="1298" vertical-scroll-proportion="0.41759464" vertical-offset="360" max-vertical-offset="2025">
           <folding>
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1411990783531" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412058933303" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/question/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="46" selection-start="1246" selection-end="1276" vertical-scroll-proportion="0.24164811" vertical-offset="503" max-vertical-offset="2010">
+          <folding>
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1411973577505" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="296" column="44" selection-start="6238" selection-end="6238" vertical-scroll-proportion="-19.083334" vertical-offset="3982" max-vertical-offset="5775">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/QuestionController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="160" column="22" selection-start="3985" selection-end="3985" vertical-scroll-proportion="0.4988864" vertical-offset="1952" max-vertical-offset="3000">
+        <state line="193" column="32" selection-start="5007" selection-end="5007" vertical-scroll-proportion="-0.28619152" vertical-offset="3152" max-vertical-offset="4050">
           <folding />
         </state>
       </provider>

@@ -47,6 +47,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				{{ Form::hidden('test_id'); }}
+				{{ Form::hidden('id'); }}
 
 				<div class="form-group">
 					{{ Form::label('text', 'Текст вопроса:'); }}
