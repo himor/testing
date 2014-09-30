@@ -162,7 +162,7 @@ class QuestionController extends BaseController
 		$num  = (int)$data['number_of_answers'];
 
 		$test     = Test::find($data['test_id']);
-		$question = Test::find($data['id']);
+		$question = Question::find($data['id']);
 
 		if (is_null($test) || is_null($question) || $test->id != $question->test->id)
 			return Redirect::route('tests.index')

@@ -18,7 +18,11 @@
 @stop
 
 @section('content')
-	{{ Form::model($question, array('route' => array('question.store'), 'autocomplete' => 'off')) }}
+	{{ Form::model($question, array(
+		'route' => array('question.update'),
+		'autocomplete' => 'off',
+		'method'       => 'put'
+		)) }}
 		<div class="row">
 			<div class="col-md-12">
 				@if ($errors->any())
