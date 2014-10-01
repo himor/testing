@@ -14,10 +14,12 @@
 	  		<span class="glyphicon glyphicon-share-alt"></span>
 	    	Вернуться к списку
 	  	</a>
+	  	@if (Auth::id() == $test->user_id && $results == 0)
 	  	<a class="btn btn-primary" href="{{ URL::route('tests.edit', $test->id) }}">
 	  		<span class="glyphicon glyphicon-cog"></span>
 	    	Редактировать
 	  	</a>
+	  	@endif
 	</div>
 @stop
 
@@ -69,7 +71,6 @@
 				</tbody>
 			</table>
 			<hr />
-			
 			<?php $n = 1; ?>
 			@if (count($test->questions) > 0)
 				<table class="table table-bordered">
@@ -79,7 +80,9 @@
 							<th>Тип</th>
 							<th>Текст</th>
 							<th>Ответы</th>
+							@if (Auth::id() == $test->user_id && $results == 0)
 							<th>Действие</th>
+							@endif
 						</tr>
 					</thead>
 					<tbody>
@@ -104,8 +107,8 @@
 												<tr>
 													<th>#</th>
 													<th>Текст ответа</th>
-													<th>Вес</th>
-													<th>Правильность</th>
+													<th width="80">Вес</th>
+													<th width="100">Правильность</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -113,11 +116,11 @@
 													<tr>
 														<td>{{ $j++ }}</td>
 														<td>{{ $answer->text }}</td>
-														<td>{{ $answer->weight }}</td>
+														<td width="80">{{ $answer->weight }}</td>
 														@if ($answer->is_correct)
-														<td class="success">Правильный</td>
+														<td class="success" width="100">Правильный</td>
 														@else
-														<td class="danger">Неправильный</td>
+														<td class="danger" width="100">Неправильный</td>
 														@endif
 													</tr>
 												@endforeach
@@ -131,6 +134,7 @@
 										@endif										
 									@endif
 								</td>
+								@if (Auth::id() == $test->user_id && $results == 0)
 								<td>
 									{{ Form::model($question, [
 										'route'        => ['question.destroy', $question->id],
@@ -146,6 +150,7 @@
 										</div>
 									{{ Form::close() }}		
 								</td>
+								@endif
 							</tr>
 						@endforeach
 					</tbody>
@@ -163,17 +168,19 @@
 			  		<span class="glyphicon glyphicon-pushpin"></span>
 			    	Создать новую версию
 			  	</a>
-			  	@if ($results == 0)
-				<a class="btn btn-default" href="{{ URL::route('question.create', $test->id) }}">
-			  		<span class="glyphicon glyphicon-question-sign"></span>
-			    	Добавить вопрос
-			  	</a>
-			  	@else
-				<a class="btn btn-default" href="{{ URL::route('result.index', $test->id) }}">
-			  		<span class="glyphicon glyphicon-eye-open"></span>
-			    	Отобразить результаты
-			  	</a>
-			  	@endif
+			  	@if (Auth::id() == $test->user_id)
+				  	@if ($results == 0)
+						<a class="btn btn-default" href="{{ URL::route('question.create', $test->id) }}">
+					  		<span class="glyphicon glyphicon-question-sign"></span>
+					    	Добавить вопрос
+					  	</a>
+				  	@else
+					<a class="btn btn-default" href="{{ URL::route('result.index', $test->id) }}">
+				  		<span class="glyphicon glyphicon-eye-open"></span>
+				    	Отобразить результаты
+				  	</a>
+				  	@endif
+				@endif
 			</div>
 		</div>
 	</div>

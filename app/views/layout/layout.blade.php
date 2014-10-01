@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <base href="<?php echo URL::to('/'); ?>">
-        <title>Управление | Тестирование CityAds</title>
+        <title>Тестирование CityAds</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
