@@ -52,12 +52,10 @@
 			<div class="col-md-6">
 				{{ Form::hidden('test_id'); }}
 				{{ Form::hidden('id'); }}
-
 				<div class="form-group">
 					{{ Form::label('text', 'Текст вопроса:'); }}
 					{{ Form::textarea('text', null, array('class' => 'form-control')) }}
 				</div>
-
 				<div class="form-group">
 					{{ Form::label('type', 'Тип вопроса'); }}
 					<div class="radio">
@@ -74,60 +72,73 @@
 			<div class="col-md-6">
 				<h4>Варианты ответа: <button type="button" class="btn btn-primary btn-xs" id="add_answer">Добавить</button></h4>
 				<hr />
-				<div class="form-group" id="answers"></div>
+				<div class="form-group edit" id="answers">
+					<?php $i = 1; ?>
+					@if ($question->type === 1)
+						@foreach ($question->answers as $answer)
+							<div class="_answer">
+								<h5><mark>Ответ №{{ $i }}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
+								<div class="form-group">
+									<label>Текст ответа</label>
+									<input type="text" name="a_{{ $i }}_text" value="{{ $answer->text }}" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label>Вес ответа</label>
+									<input type="text" name="a_{{ $i }}_weight" value="{{ $answer->weight }}" class="form-control" />
+								</div>
+								<div class="radio">
+									<label>
+										@if ($answer->is_correct)
+											<input type="radio" name="a_0_correct" value="{{ $i }}" class="_correct" checked /> Правильный ответ
+										@else
+											<input type="radio" name="a_0_correct" value="{{ $i }}" class="_correct" /> Правильный ответ
+										@endif
+									</label>
+								</div>
+								<hr />
+							</div>
+							<?php $i++; ?>
+						@endforeach
+					@endif
+
+					@if ($question->type === 2)
+						@foreach ($question->answers as $answer)
+							<div class="_answer">
+								<h5><mark>Ответ №{{ $i }}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
+								<div class="form-group">
+									<label>Текст ответа</label>
+									<input type="text" name="a_{{ $i }}_text" value="{{ $answer->text }}" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label>Вес ответа</label>
+									<input type="text" name="a_{{ $i }}_weight" value="{{ $answer->weight }}" class="form-control" />
+								</div>
+								<div class="checkbox">
+									<label>
+										@if ($answer->is_correct)
+											<input type="checkbox" name="a_{{ $i }}_correct" class="_correct" checked /> Правильный ответ
+										@else
+											<input type="checkbox" name="a_{{ $i }}_correct" class="_correct" /> Правильный ответ
+										@endif
+									</label>
+								</div>
+								<hr />
+							</div>
+							<?php $i++; ?>
+						@endforeach
+					@endif
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				{{ Form::hidden('number_of_answers', false, array('id' => 'number_of_answers')); }}
+				{{ Form::hidden('number_of_answers', count($question->answers), array('id' => 'number_of_answers')); }}
 				<hr />
 				<div class="form-group">
-					{{ Form::submit('Сохранить', array('class' => 'btn btn-success')) }}
+					{{ Form::submit('Сохранить', array('class' => 'btn btn-success _submit')) }}
 				</div>
 			</div>
 		</div>
-		<script id="answer_radio" type="text/template">
-			<div class="_answer">
-				<h5><mark>Ответ №{$id}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
-				<div class="form-group">
-					<label>Текст ответа</label>
-					<input type="text" name="a_{$id}_text" value="" class="form-control" />
-				</div>
-				<div class="form-group">
-					<label>Вес ответа</label>
-					<input type="text" name="a_{$id}_weight" value="0" class="form-control" />
-				</div>
-				<div class="radio">
-					<label>
-						<input type="radio" name="a_0_correct" value="{$id}" /> Правильный ответ
-					</label>
-				</div>
-				<hr />
-			</div>
-		</script>
-		<script id="answer_checkbox" type="text/template">
-			<div class="_answer">
-				<h5><mark>Ответ №{$id}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
-				<div class="form-group">
-					<label>Текст ответа</label>
-					<input type="text" name="a_{$id}_text" value="" class="form-control" />
-				</div>
-				<div class="form-group">
-					<label>Вес ответа</label>
-					<input type="text" name="a_{$id}_weight" value="0" class="form-control" />
-				</div>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" name="a_{$id}_correct" /> Правильный ответ
-					</label>
-				</div>
-				<hr />
-			</div>
-		</script>
-		<script id="answer_text" type="text/template">
-			<div class="_answer">
-				Для текстового вопроса не предусмотрены варианты ответа
-			</div>
-		</script>
+		@include('question.answers')
 	{{ Form::close() }}
 @stop

@@ -4,7 +4,7 @@ var answers = $('#answers'),
 	answer_text = $('#answer_text'),
 	add = $('#add_answer'),
 	num = $('#number_of_answers'),
-	count = 0;
+	count = +num.val();
 
 /**
  * Добавление нового вопроса по типу
@@ -81,7 +81,31 @@ $(function () {
 			}
 		});
 
-		$('._answer_type:checked').click();
+		// Submit формы
+		$(document).on('click', '._submit', function (event) {
+			var tempAnswers = answers.find('._answer'),
+				hasCorrect  = 0;
+
+			// Проверка на наличие верных ответов
+			for (var i = 0, len = tempAnswers.length; i < len; i++) {
+				var item = $(tempAnswers[i]);
+
+				if (item.find('._correct:checked').length) {
+					hasCorrect++;
+				}
+			}
+
+			if (!hasCorrect) {
+				event.preventDefault();
+				event.stopPropagation();
+
+				alert('Нет верных ответов!');
+			}
+		});
+
+		if (!answers.hasClass('edit')) {
+			$('._answer_type:checked').click();
+		}
 
 		// Клик на добавление нового ответа
 		add.on('click', _addAnswer);

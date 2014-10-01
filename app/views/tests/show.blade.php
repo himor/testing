@@ -79,6 +79,7 @@
 							<th>Тип</th>
 							<th>Текст</th>
 							<th>Ответы</th>
+							<th>Действие</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -129,6 +130,21 @@
 											К данному вопросу не указаны ответы.
 										@endif										
 									@endif
+								</td>
+								<td>
+									{{ Form::model($question, [
+										'route'        => ['question.destroy', $question->id],
+										'autocomplete' => 'off',
+										'method'       => 'delete'
+									]) }}
+										<div class="btn-group-vertical">
+											<a class="btn btn-default" href="{{ URL::route('question.edit', $question->id) }}">
+										  		<span class="glyphicon glyphicon-pencil"></span>
+										    	Редактировать
+										  	</a>
+											{{ Form::submit('Удалить', array('class' => 'btn btn-danger')) }}
+										</div>
+									{{ Form::close() }}		
 								</td>
 							</tr>
 						@endforeach
