@@ -14,6 +14,8 @@ class TokenController extends BaseController
 	 */
 	public function indexAction($tokenString)
 	{
+		Assets::reset()->add('main');
+
 		$token = Token::where('token', $tokenString)->get()->first();
 
 		if (!count($token)) {
@@ -48,6 +50,8 @@ class TokenController extends BaseController
 	 */
 	public function startIndexAction()
 	{
+		Assets::reset()->add('main');
+
 		$token = $this->getToken();
 		if (!$token) {
 			return Redirect::route('info')
@@ -100,6 +104,8 @@ class TokenController extends BaseController
 	 */
 	public function startAction()
 	{
+		Assets::reset()->add('main');
+		
 		$token = $this->getToken();
 		if (!$token) {
 			return Redirect::route('info')

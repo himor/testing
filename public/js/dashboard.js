@@ -83,23 +83,25 @@ $(function () {
 
 		// Submit формы
 		$(document).on('click', '._submit', function (event) {
-			var tempAnswers = answers.find('._answer'),
-				hasCorrect  = 0;
+			if (answers.find('._correct').length) {
+				var tempAnswers = answers.find('._answer:not(.empty)'),
+					hasCorrect  = 0;
 
-			// Проверка на наличие верных ответов
-			for (var i = 0, len = tempAnswers.length; i < len; i++) {
-				var item = $(tempAnswers[i]);
+				// Проверка на наличие верных ответов
+				for (var i = 0, len = tempAnswers.length; i < len; i++) {
+					var item = $(tempAnswers[i]);
 
-				if (item.find('._correct:checked').length) {
-					hasCorrect++;
+					if (item.find('._correct:checked').length) {
+						hasCorrect++;
+					}
 				}
-			}
 
-			if (!hasCorrect) {
-				event.preventDefault();
-				event.stopPropagation();
+				if (!hasCorrect) {
+					event.preventDefault();
+					event.stopPropagation();
 
-				alert('Нет верных ответов!');
+					alert('Нет верных ответов!');
+				}
 			}
 		});
 

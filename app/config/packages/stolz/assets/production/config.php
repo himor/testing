@@ -71,6 +71,11 @@ return array(
 			'vendor/jquery-1.11.1.min.js',
 			'admin.js', 
 			'admin.css'
+		],
+		'main' => [
+			'vendor/jquery-1.11.1.min.js',
+			'main.js',
+			'main.css'
 		]
 	),
 

@@ -9,6 +9,7 @@
 @section('content')
 <div class="page-header">
 	<h1>{{ $token->test->name }}</h1>
+	<div id="time"></div>
 </div>
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -43,4 +44,7 @@
 		</form>
 	</div>
 </div>
+<script type="text/javascript">
+	var path = "{{ URL::route('check_status') }}";
+</script>
 @stop

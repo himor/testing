@@ -41,6 +41,7 @@ module.exports = function (grunt)
             },
             dist: {
                 src: [
+                    'public/js/vendor/bootstrap.min.js',
                     'public/js/main.js',
                 ],
                 dest: 'public/temp/js/main.js'
@@ -50,7 +51,7 @@ module.exports = function (grunt)
         { 
             options: {
                 stripBanners: true,
-                banner: '/* <%= pkg.name %> | Main JS | build <%= grunt.template.today("yyyy-mm-dd") %> */\n\n'
+                banner: '/* <%= pkg.name %> | Scripts | build <%= grunt.template.today("yyyy-mm-dd") %> */\n\n'
             },
             build: {
                 src: 'public/temp/js/main.js',  
@@ -65,18 +66,20 @@ module.exports = function (grunt)
         { 
             build: {
                 options: {
-                    banner: '/* <%= pkg.name %> | Main CSS | build <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                    banner: '/* <%= pkg.name %> | Styles | build <%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 files: {
                     'public/build/css/main.css': [
                         'public/css/normalize.css', 
+                        'public/css/bootstrap.min.css',
+                        'public/css/bootstrap-theme.min.css',
                         'public/css/main.css'
                     ]   
                 }
             },
             admin: {
                 options: {
-                    banner: '/* <%= pkg.name %> | Admin CSS | build <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                    banner: '/* <%= pkg.name %> | Styles | build <%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 files: {
                     'public/build/css/admin.css': [

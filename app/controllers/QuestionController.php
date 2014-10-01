@@ -260,7 +260,7 @@ class QuestionController extends BaseController
 		DB::table('answer')->where('question_id', $id)->delete();
 		DB::table('question')->where('id', $id)->delete();
 
-		return Redirect::route('tests.index');
+		return Redirect::route('tests.show', $test->id);
 	}
 
 }

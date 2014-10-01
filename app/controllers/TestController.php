@@ -14,6 +14,8 @@ class TestController extends BaseController
 	 */
 	public function indexAction()
 	{
+		Assets::reset()->add('main');
+		
 		$token = $this->getToken();
 		if (!$token) {
 			return Redirect::route('info')

@@ -28,7 +28,7 @@ Route::get('admin', [
 
 Route::group(array('prefix' => 'admin'), function()
 {
-	Assets::add('admin');
+	Assets::reset()->add('admin');
 });
 
 /**

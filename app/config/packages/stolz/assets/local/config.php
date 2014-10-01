@@ -79,6 +79,12 @@ return array(
 			'bootstrap',
 			'dashboard.js',
 			'dashboard.css'
+		],
+		'main' => [
+			'vendor/jquery-1.11.1.min.js', 
+			'bootstrap',
+			'main.js',
+			'main.css'
 		]
 	),
 
