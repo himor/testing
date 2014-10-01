@@ -257,6 +257,7 @@ class QuestionController extends BaseController
 				->with('error', 'Нельзя редактировать тест, на который есть ответы');
 		}
 
+		DB::table('answer')->where('question_id', $id)->delete();
 		DB::table('question')->where('id', $id)->delete();
 
 		return Redirect::route('tests.index');

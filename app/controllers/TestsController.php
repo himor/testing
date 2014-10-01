@@ -326,6 +326,15 @@ class TestsController extends BaseController
 				->with('error', 'Нельзя удалить тест, на который есть ответы');
 		}
 
+		/**
+		 * Получим список вопросов
+		 */
+		$questions = Question::where('test_id', $id)->get();
+		foreach ($questions as $q) {
+			DB::table('answer')->where('question_id', $q->id)->delete();
+		}
+
+		DB::table('question')->where('test_id', $id)->delete();
 		DB::table('test')->where('id', $id)->delete();
 
 		return Redirect::route('tests.index');
