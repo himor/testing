@@ -22,10 +22,10 @@ class QuestionController extends BaseController
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
-
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+//
 		/**
 		 * Проверим, нет ли ответов по этому тесту
 		 */
@@ -60,9 +60,9 @@ class QuestionController extends BaseController
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
 
 		/**
 		 * Проверим, нет ли ответов по этому тесту
@@ -133,9 +133,9 @@ class QuestionController extends BaseController
 
 		$test = $question->test;
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
 
 		/**
 		 * Проверим, нет ли ответов по этому тесту
@@ -168,9 +168,9 @@ class QuestionController extends BaseController
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect id');
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
 
 		/**
 		 * Проверим, нет ли ответов по этому тесту
@@ -245,9 +245,9 @@ class QuestionController extends BaseController
 
 		$test = $question->test;
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
 
 		/**
 		 * Проверим, нет ли ответов по этому тесту

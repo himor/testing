@@ -220,9 +220,9 @@ class TestsController extends BaseController
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
 
 		/**
 		 * Проверим, нет ли ответов по этому тесту
@@ -258,9 +258,9 @@ class TestsController extends BaseController
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
 
 		$validation = Validator::make(Input::all(), Test::$rules);
 
@@ -314,9 +314,9 @@ class TestsController extends BaseController
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя удалить тест созданный другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя удалить тест созданный другим пользователем');
 
 		/**
 		 * Проверим, нет ли ответов по этому тесту
