@@ -14,12 +14,10 @@
 	  		<span class="glyphicon glyphicon-share-alt"></span>
 	    	Вернуться к списку
 	  	</a>
-	  	@if (Auth::id() == $test->user_id && $results == 0)
 	  	<a class="btn btn-primary" href="{{ URL::route('tests.edit', $test->id) }}">
 	  		<span class="glyphicon glyphicon-cog"></span>
 	    	Редактировать
 	  	</a>
-	  	@endif
 	</div>
 @stop
 
@@ -80,7 +78,7 @@
 							<th>Тип</th>
 							<th>Текст</th>
 							<th>Ответы</th>
-							@if (Auth::id() == $test->user_id && $results == 0)
+							@if ($results == 0)
 							<th>Действие</th>
 							@endif
 						</tr>
@@ -134,7 +132,7 @@
 										@endif										
 									@endif
 								</td>
-								@if (Auth::id() == $test->user_id && $results == 0)
+								@if ($results == 0)
 								<td>
 									{{ Form::model($question, [
 										'route'        => ['question.destroy', $question->id],
@@ -168,19 +166,17 @@
 			  		<span class="glyphicon glyphicon-pushpin"></span>
 			    	Создать новую версию
 			  	</a>
-			  	@if (Auth::id() == $test->user_id)
-				  	@if ($results == 0)
-						<a class="btn btn-default" href="{{ URL::route('question.create', $test->id) }}">
-					  		<span class="glyphicon glyphicon-question-sign"></span>
-					    	Добавить вопрос
-					  	</a>
-				  	@else
-					<a class="btn btn-default" href="{{ URL::route('result.index', $test->id) }}">
-				  		<span class="glyphicon glyphicon-eye-open"></span>
-				    	Отобразить результаты
+			  	@if ($results == 0)
+					<a class="btn btn-default" href="{{ URL::route('question.create', $test->id) }}">
+				  		<span class="glyphicon glyphicon-question-sign"></span>
+				    	Добавить вопрос
 				  	</a>
-				  	@endif
-				@endif
+			  	@else
+				<a class="btn btn-default" href="{{ URL::route('result.index', $test->id) }}">
+			  		<span class="glyphicon glyphicon-eye-open"></span>
+			    	Отобразить результаты
+			  	</a>
+			  	@endif
 			</div>
 		</div>
 	</div>
