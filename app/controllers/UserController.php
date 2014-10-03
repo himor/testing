@@ -60,7 +60,7 @@ class UserController extends BaseController
 		$user['email']    = strtolower(Input::get('email'));
 		$user             = User::create($user);
 
-		return Redirect::route('users.show', $user->id);
+		return Redirect::route('users.index');
 	}
 
 	/**
@@ -70,6 +70,8 @@ class UserController extends BaseController
 	 */
 	public function showAction($id)
 	{
+		return Redirect::route('users.index');
+
 		$user = User::find($id);
 
 		if (is_null($user))
@@ -152,7 +154,7 @@ class UserController extends BaseController
 			$user->password = Hash::make(Input::get('password'));
 
 		$user->save();
-		return Redirect::route('users.show', $id);
+		return Redirect::route('users.index');
 	}
 
 	/**
