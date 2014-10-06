@@ -5,8 +5,7 @@
  *
  * @author Mike Gordo <m.gordo@cityads.ru>
  */
-class QuestionController extends BaseController
-{
+class QuestionController extends BaseController {
 	/**
 	 * Создание нового вопроса
 	 *
@@ -14,8 +13,7 @@ class QuestionController extends BaseController
 	 *
 	 * @return mixed
 	 */
-	public function createAction($id)
-	{
+	public function createAction($id) {
 		$test = Test::find($id);
 
 		if (is_null($test))
@@ -36,6 +34,7 @@ class QuestionController extends BaseController
 
 		$question          = new Question();
 		$question->test_id = $id;
+		$question->number  = count(Question::where('test_id', $id)->get()) + 1;
 
 		return View::make('question.create', [
 				'test'     => $test,
@@ -49,8 +48,7 @@ class QuestionController extends BaseController
 	 *
 	 * @return mixed
 	 */
-	public function storeAction()
-	{
+	public function storeAction() {
 		$data = Input::all();
 		$num  = (int)$data['number_of_answers'];
 
@@ -123,8 +121,7 @@ class QuestionController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function editAction($id)
-	{
+	public function editAction($id) {
 		$question = Question::find($id);
 
 		if (is_null($question))
@@ -155,8 +152,7 @@ class QuestionController extends BaseController
 	/**
 	 * Сохранение изменений в вопросе
 	 */
-	public function updateAction()
-	{
+	public function updateAction() {
 		// обновление данных вопроса и ответов
 		$data = Input::all();
 		$num  = (int)$data['number_of_answers'];
@@ -235,8 +231,7 @@ class QuestionController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function deleteAction($id)
-	{
+	public function deleteAction($id) {
 		$question = Question::find($id);
 
 		if (is_null($question))

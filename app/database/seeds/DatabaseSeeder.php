@@ -1,14 +1,12 @@
 <?php
 
-class DatabaseSeeder extends Seeder
-{
+class DatabaseSeeder extends Seeder {
 	/**
 	 * Run the database seeds.
 	 *
 	 * @return void
 	 */
-	public function run()
-	{
+	public function run() {
 		Eloquent::unguard();
 
 		/**
@@ -158,6 +156,7 @@ class DatabaseSeeder extends Seeder
 			[
 				'id'         => 1,
 				'test_id'    => 1,
+				'number'     => 1,
 				'type'       => Question::TYPE_RADIO,
 				'text'       => 'Кто подставил кролика Роджера?',
 				'created_at' => date('Y-m-d H:i:s')
@@ -203,6 +202,7 @@ class DatabaseSeeder extends Seeder
 			[
 				'id'         => 2,
 				'test_id'    => 1,
+				'number'     => 2,
 				'type'       => Question::TYPE_CHECKBOX,
 				'text'       => 'Где находится центр Вселенной?',
 				'created_at' => date('Y-m-d H:i:s')
@@ -249,6 +249,7 @@ class DatabaseSeeder extends Seeder
 			[
 				'id'         => 3,
 				'test_id'    => 1,
+				'number'     => 3,
 				'type'       => Question::TYPE_STRING,
 				'text'       => 'На какой планете вы живете?',
 				'created_at' => date('Y-m-d H:i:s')

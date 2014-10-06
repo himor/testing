@@ -5,8 +5,7 @@
  *
  * @author Mike Gordo <m.gordo@cityads.ru>
  */
-class ResultController extends BaseController
-{
+class ResultController extends BaseController {
 	protected $layout = 'layout.tests';
 
 	/**
@@ -14,8 +13,7 @@ class ResultController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function indexAction($id)
-	{
+	public function indexAction($id) {
 		$test = Test::find($id);
 
 		if (is_null($test))
@@ -25,6 +23,11 @@ class ResultController extends BaseController
 		if (Auth::user()->getId() != $test->user_id)
 			return Redirect::route('tests.index')
 				->with('error', 'Нельзя просмотреть результаты теста, созданного другим пользователем');
+
+		/* запрос без группировки для расчёта продолжительности тестов */
+		$results_ = Result::where('test_id', $id)
+			->orderBy('created_at', 'desc')
+			->get();
 
 		$results = Result::where('test_id', $id)
 			->orderBy('created_at', 'desc')
@@ -53,6 +56,23 @@ class ResultController extends BaseController
 			$tokens[$token->token] = $token;
 		}
 
+		/* когда закончили тесты минус когда начали */
+		$ends = [];
+		foreach ($results_ as $result) {
+			$start    = $tokens[$result->token]->start;
+			$duration = $result->created_at->format('U') - $start;
+			if (!isset($ends[$result->token]) || (isset($ends[$result->token]) && $ends[$result->token] < $duration)) {
+				$ends[$result->token] = $duration;
+			}
+		}
+
+		/* нормализация времени */
+		foreach ($ends as $key => $value) {
+			$min        = (int)($value / 60);
+			$sec        = $value - $min * 60;
+			$ends[$key] = ($min < 10 ? '0' . $min : $min) . ':' . ($sec < 10 ? '0' . $sec : $sec);
+		}
+
 		$tw = 0;
 		foreach ($test->questions as $q) {
 			foreach ($q->answers as $a) {
@@ -70,7 +90,8 @@ class ResultController extends BaseController
 				'total_questions' => count($test->questions),
 				'total_weight'    => $tw,
 				'results'         => $results,
-				'tokens'          => $tokens
+				'tokens'          => $tokens,
+				'duration'        => $ends,
 			]
 		);
 	}
@@ -81,8 +102,7 @@ class ResultController extends BaseController
 	 * @param $id
 	 * @param $rid
 	 */
-	public function showAction($id, $rid)
-	{
+	public function showAction($id, $rid) {
 		$test = Test::find($id);
 
 		if (is_null($test))
@@ -110,8 +130,12 @@ class ResultController extends BaseController
 		}
 
 		$score = 0;
+		$max   = 0;
 		foreach ($results as $result) {
 			$score += $result->weight;
+			if ($max < $result->created_at->format('U')) {
+				$max = $result->created_at->format('U');
+			}
 		}
 
 		$weights = [];
@@ -130,6 +154,12 @@ class ResultController extends BaseController
 			}
 		}
 
+		$token = Token::where('token', $result->token)->get();
+		$ends  = $max - $token[0]->start;
+		$min   = (int)($ends / 60);
+		$sec   = $ends - $min * 60;
+		$ends  = ($min < 10 ? '0' . $min : $min) . ':' . ($sec < 10 ? '0' . $sec : $sec);
+
 		return View::make('tests.results_show', [
 				'token'           => Token::where('token', $single->token)->get()[0],
 				'test'            => $test,
@@ -137,7 +167,8 @@ class ResultController extends BaseController
 				'total_weight'    => $tw,
 				'results'         => $results,
 				'weights'         => $weights,
-				'score'           => $score
+				'score'           => $score,
+				'duration'        => $ends,
 			]
 		);
 	}
@@ -149,10 +180,9 @@ class ResultController extends BaseController
 	 *
 	 * @return mixed
 	 */
-	public function resultCorrect($id)
-	{
+	public function resultCorrect($id) {
 		$result = Result::find($id);
-		$data = Input::all();
+		$data   = Input::all();
 
 		if (is_null($result))
 			return Response::json(['error' => 'Result not found'], 400);

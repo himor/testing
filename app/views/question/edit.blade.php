@@ -2,7 +2,7 @@
 
 @section('title')
 	<div class="page-header">
-		<h1>Редактировать вопрос
+		<h1>Редактировать вопрос #{{ $question->number }}
 		<small>{{ $test->name }}</small>
 		</h1>
 	</div>
@@ -52,6 +52,7 @@
 			<div class="col-md-6">
 				{{ Form::hidden('test_id'); }}
 				{{ Form::hidden('id'); }}
+				{{ Form::hidden('number'); }}
 				<div class="form-group">
 					{{ Form::label('text', 'Текст вопроса:'); }}
 					{{ Form::textarea('text', null, array('class' => 'form-control')) }}

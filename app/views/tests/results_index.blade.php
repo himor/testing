@@ -27,6 +27,7 @@
 	<th>Имя</th>
 	<th>Отдел</th>
 	<th>Результат</th>
+	<th>Продолжительность</th>
 	</thead>
 	<tbody>
 	<?php $i = 1; ?>
@@ -39,6 +40,7 @@
 		</td>
 		<td>{{ $tokens[$item->token]->dept_name }}</td>
 		<td>{{ $item->total_weight }}/{{ $total_weight }} (ответов {{ $item->answered }}/{{ $total_questions }})</td>
+		<td>{{ $duration[$item->token] }}</td>
 
 		<td>
 
