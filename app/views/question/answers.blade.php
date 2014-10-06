@@ -3,7 +3,7 @@
 		<h5><mark>Ответ №{$id}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
 		<div class="form-group">
 			<label>Текст ответа</label>
-			<input type="text" name="a_{$id}_text" value="" class="form-control" />
+			<textarea name="a_{$id}_text" class="form-control"></textarea>
 		</div>
 		<div class="form-group">
 			<label>Вес ответа</label>
@@ -22,7 +22,7 @@
 		<h5><mark>Ответ №{$id}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
 		<div class="form-group">
 			<label>Текст ответа</label>
-			<input type="text" name="a_{$id}_text" value="" class="form-control" />
+			<textarea name="a_{$id}_text" class="form-control"></textarea>
 		</div>
 		<div class="form-group">
 			<label>Вес ответа</label>

@@ -82,7 +82,7 @@
 		</div>
 
 		<div class="form-group">
-			{{ Form::label('duration', 'Продолжительность'); }}
+			{{ Form::label('duration', 'Продолжительность (мин.)'); }}
 			{{ Form::text('duration', null, array('class' => 'form-control')) }}
 		</div>
 

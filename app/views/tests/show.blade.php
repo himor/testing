@@ -18,6 +18,25 @@
 	  		<span class="glyphicon glyphicon-cog"></span>
 	    	Редактировать
 	  	</a>
+	  	<a class="btn btn-default" href="{{ URL::route('version.create', $test->id) }}">
+	  		<span class="glyphicon glyphicon-pushpin"></span>
+	    	Создать новую версию
+	  	</a>
+	  	@if ($results == 0)
+			<a class="btn btn-default" href="{{ URL::route('question.create', $test->id) }}">
+		  		<span class="glyphicon glyphicon-question-sign"></span>
+		    	Добавить вопрос
+		  	</a>
+	  	@else
+		<a class="btn btn-default" href="{{ URL::route('result.index', $test->id) }}">
+	  		<span class="glyphicon glyphicon-eye-open"></span>
+	    	Отобразить результаты
+	  	</a>
+	  	@endif
+		<a class="btn btn-success" href="{{ URL::route('token.create', $test->id) }}">
+	  		<span class="glyphicon glyphicon-envelope"></span>
+	    	Отправить пользователю
+	  	</a>
 	</div>
 @stop
 
@@ -40,7 +59,7 @@
 					</tr>
 					<tr>
 						<td>Продолжительность</td>
-						<td>{{ $test->duration }}</td>
+						<td>{{ $test->duration / 60 }} мин.</td>
 					</tr>
 					<tr>
 						<td>Категория</td>
@@ -156,28 +175,6 @@
 			@else 
 				<p>В данном тесте пока нет вопросов.</p>
 			@endif
-			<hr />
-			<div class="btn-group">
-				<a class="btn btn-success" href="{{ URL::route('token.create', $test->id) }}">
-			  		<span class="glyphicon glyphicon-envelope"></span>
-			    	Отправить пользователю
-			  	</a>
-			  	<a class="btn btn-default" href="{{ URL::route('version.create', $test->id) }}">
-			  		<span class="glyphicon glyphicon-pushpin"></span>
-			    	Создать новую версию
-			  	</a>
-			  	@if ($results == 0)
-					<a class="btn btn-default" href="{{ URL::route('question.create', $test->id) }}">
-				  		<span class="glyphicon glyphicon-question-sign"></span>
-				    	Добавить вопрос
-				  	</a>
-			  	@else
-				<a class="btn btn-default" href="{{ URL::route('result.index', $test->id) }}">
-			  		<span class="glyphicon glyphicon-eye-open"></span>
-			    	Отобразить результаты
-			  	</a>
-			  	@endif
-			</div>
 		</div>
 	</div>
 @stop

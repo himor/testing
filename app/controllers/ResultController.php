@@ -47,7 +47,8 @@ class ResultController extends BaseController {
 
 		$tokens_ = DB::table('token')
 			->join('department', 'department.id', '=', 'token.department_id')
-			->select(DB::raw('token.*, department.name as dept_name'))
+			->join('group', 'group.id', '=', 'token.group_id')
+			->select(DB::raw('token.*, department.name as dept_name, group.name as group_name'))
 			->whereIn('token', $tokens)
 			->get();
 

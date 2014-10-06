@@ -81,7 +81,7 @@
 								<h5><mark>Ответ №{{ $i }}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
 								<div class="form-group">
 									<label>Текст ответа</label>
-									<input type="text" name="a_{{ $i }}_text" value="{{ $answer->text }}" class="form-control" />
+									<textarea name="a_{{ $i }}_text" class="form-control">{{ $answer->text }}</textarea>
 								</div>
 								<div class="form-group">
 									<label>Вес ответа</label>
@@ -101,14 +101,13 @@
 							<?php $i++; ?>
 						@endforeach
 					@endif
-
 					@if ($question->type === 2)
 						@foreach ($question->answers as $answer)
 							<div class="_answer">
 								<h5><mark>Ответ №{{ $i }}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
 								<div class="form-group">
 									<label>Текст ответа</label>
-									<input type="text" name="a_{{ $i }}_text" value="{{ $answer->text }}" class="form-control" />
+									<textarea name="a_{{ $i }}_text" class="form-control">{{ $answer->text }}</textarea>
 								</div>
 								<div class="form-group">
 									<label>Вес ответа</label>

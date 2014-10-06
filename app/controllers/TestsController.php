@@ -29,7 +29,7 @@ class TestsController extends BaseController
 	{
 		$test           = new Test();
 		$test->name     = 'Мой тест, ' . date('d.m.Y');
-		$test->duration = 600;
+		$test->duration = 10;
 		$test->version  = 1;
 
 		$categories           = Category::all();
@@ -173,8 +173,9 @@ class TestsController extends BaseController
 			$data['version'] = $this->getNextVersion($data['name']);
 		}
 
-		$data['user_id'] = Auth::user()->getId();
-		$data['active']  = false;
+		$data['user_id'] 	= Auth::user()->getId();
+		$data['active']  	= false;
+		$data['duration'] 	= $data['duration'] * 60; 
 
 		$test = Test::create($data);
 
@@ -237,6 +238,8 @@ class TestsController extends BaseController
 			$selectedCategories[$category->id] = $category->name;
 		}
 
+		$test['duration'] = $test['duration'] / 60;
+
 		return View::make('tests.edit', [
 				'test'       => $test,
 				'categories' => $selectedCategories,
@@ -272,6 +275,8 @@ class TestsController extends BaseController
 		}
 
 		$data = Input::all();
+
+		$data['duration'] = $data['duration'] * 60;
 
 		/**
 		 * Проверим, нет ли ответов по этому тесту

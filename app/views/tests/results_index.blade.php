@@ -25,10 +25,11 @@
 	<thead>
 	<th>#</th>
 	<th>Имя</th>
+	<th>Департамент</th>
 	<th>Отдел</th>
 	<th>Результат</th>
 	<th>Продолжительность</th>
-	</thead>
+	</thead> 
 	<tbody>
 	<?php $i = 1; ?>
 	@foreach ($results as $item)
@@ -39,12 +40,11 @@
 			</a>
 		</td>
 		<td>{{ $tokens[$item->token]->dept_name }}</td>
+		<td>{{ $tokens[$item->token]->group_name }}</td>
 		<td>{{ $item->total_weight }}/{{ $total_weight }} (ответов {{ $item->answered }}/{{ $total_questions }})</td>
 		<td>{{ $duration[$item->token] }}</td>
 
-		<td>
-
-		</td>
+		<td></td>
 	</tr>
 	@endforeach
 	</tbody>

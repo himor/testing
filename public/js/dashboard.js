@@ -39,7 +39,6 @@ var _addAnswer = function (type) {
 
 $(function () {
 	if (answers.length) {
-
 		// Клик на удаление имеющегося ответа
 		$(document).on('click', '._remove_answer', function (e) {
 			if (answers.find('._answer').length > 2) {
@@ -52,7 +51,7 @@ $(function () {
 				answers.find('._answer').each(function (i, element) {
 					var el = $(element);
 					el.find('mark').html('Ответ №' + (i+1));
-					el.find('input').each(function (n, input) {
+					el.find('input, textarea').each(function (n, input) {
                         if ( $(input).attr('type') === 'radio' ) {
                             $(input).val(i+1);
                         } else {
