@@ -43,6 +43,7 @@
 				          					<ul class="dropdown-menu" role="menu">
 				          						<li><a href="{{ URL::route('departments.index') }}">Департаменты</a></li>
 												<li><a href="{{ URL::route('groups.index') }}">Отделы</a></li>
+									            <li><a href="{{ URL::route('categories.index') }}">Категории тестов</a></li>
 				          					</ul>
 					        			</li>
 					      			</ul>
