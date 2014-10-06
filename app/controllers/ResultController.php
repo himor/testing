@@ -20,9 +20,9 @@ class ResultController extends BaseController {
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя просмотреть результаты теста, созданного другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя просмотреть результаты теста, созданного другим пользователем');
 
 		/* запрос без группировки для расчёта продолжительности тестов */
 		$results_ = Result::where('test_id', $id)
@@ -109,9 +109,9 @@ class ResultController extends BaseController {
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		if (Auth::user()->getId() != $test->user_id)
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя просмотреть результаты теста, созданного другим пользователем');
+//		if (Auth::user()->getId() != $test->user_id)
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя просмотреть результаты теста, созданного другим пользователем');
 
 		$single = Result::find($rid);
 
