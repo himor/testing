@@ -182,8 +182,9 @@ class ResultController extends BaseController {
 	 * @return mixed
 	 */
 	public function resultCorrect($id) {
-		$result = Result::find($id);
-		$data   = Input::all();
+		$result    = Result::find($id);
+		$data      = Input::all();
+		$isCorrect = $data['is_correct'] ? true : false;
 
 		if (is_null($result))
 			return Response::json(['error' => 'Result not found'], 400);
@@ -193,7 +194,7 @@ class ResultController extends BaseController {
 		// if (is_null($test) || Auth::user()->getId() != $test->user_id)
 		// 	return Response::json(['error' => 'Access denied'], 400);
 
-		$result->is_correct = $result->is_correct ? false : true;
+		$result->is_correct = $isCorrect ? false : true;
 
 		if ($result->is_correct) {
 			$result->weight = (isset($data['weight']) && $data['weight']) ? (int)$data['weight'] : 1;
