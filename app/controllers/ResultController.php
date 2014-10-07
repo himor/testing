@@ -50,6 +50,8 @@ class ResultController extends BaseController {
 			->join('group', 'group.id', '=', 'token.group_id')
 			->select(DB::raw('token.*, department.name as dept_name, group.name as group_name'))
 			->whereIn('token', $tokens)
+			->whereRaw('token.start is not null')
+			->whereRaw('token.start < '. (time() - $test->duration))
 			->get();
 
 		$tokens = [];
@@ -57,9 +59,18 @@ class ResultController extends BaseController {
 			$tokens[$token->token] = $token;
 		}
 
+		/* удалим результаты которые ещё рано выводить */
+		$results2 = [];
+		foreach ($results as $result) {
+			if (!isset($tokens[$result->token])) continue;
+			$results2[] = $result;
+		}
+		$results = $results2;
+
 		/* когда закончили тесты минус когда начали */
 		$ends = [];
 		foreach ($results_ as $result) {
+			if (!isset($tokens[$result->token])) continue;
 			$start    = $tokens[$result->token]->start;
 			$duration = $result->created_at->format('U') - $start;
 			if (!isset($ends[$result->token]) || (isset($ends[$result->token]) && $ends[$result->token] < $duration)) {
