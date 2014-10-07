@@ -61,6 +61,7 @@ class TestsController extends BaseController
 				->with('error', 'Incorrect test id');
 
 		$test->version = (int)$test->version + 1;
+		$test->duration = $test->duration / 60;
 
 		$categories           = Category::all();
 		$selectedCategories   = array();
@@ -115,6 +116,7 @@ class TestsController extends BaseController
 
 		$data['user_id'] = Auth::user()->getId();
 		$data['active']  = false;
+		$data['duration'] = $data['duration'] * 60;
 
 		$test = Test::create($data);
 

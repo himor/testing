@@ -28,7 +28,7 @@
 		    	Добавить вопрос
 		  	</a>
 	  	@else
-		<a class="btn btn-default" href="{{ URL::route('result.index', $test->id) }}">
+		<a class="btn btn-warning" href="{{ URL::route('result.index', $test->id) }}">
 	  		<span class="glyphicon glyphicon-eye-open"></span>
 	    	Отобразить результаты
 	  	</a>
