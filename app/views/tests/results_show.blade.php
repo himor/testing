@@ -74,9 +74,11 @@
 			<thead>
 			<th>#</th>
 			<th>Вопрос</th>
+			<th>Тип</th>
 			<th>Ответ</th>
 			<th>Баллы</th>
 			<th>Максимум</th>
+			<th>Действие</th>
 			</thead>
 			<tbody>
 			<?php $i = 1; ?>
@@ -90,9 +92,35 @@
 				@endif
 					<td><?php echo $i++; ?></td>
 					<td>{{ $item->q_text }}</td>
+					<td>
+						@if ($item->question->type == 1)
+						Единственный выбор
+						@elseif ($item->question->type == 2)
+						Множественный выбор
+						@else
+						Текстовый ответ
+						@endif 
+					</td>
 					<td>{{ $item->a_text }}</td>
 					<td>{{ $item->weight }}</td>
 					<td>{{ $weights[$item->question_id] }}</td>
+					<td>
+						@if ($item->question->type == 3)
+						<div class="btn-group">
+							@if ($item->is_correct)
+							<a class="btn btn-default" href="{{ URL::route('correct_result', array('id' => $item->id, 'is_correct' => false)) }}">
+								Неверный
+							</a>
+							@else
+							<a class="btn btn-default" href="{{ URL::route('correct_result', array('id' => $item->id, 'is_correct' => 1)) }}">
+								Верный
+							</a>
+							@endif
+						</div>
+						@else
+						—
+						@endif
+					</td>
 				</tr>
 			@endforeach
 			</tbody>

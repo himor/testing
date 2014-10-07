@@ -190,8 +190,8 @@ class ResultController extends BaseController {
 
 		$test = $result->test;
 
-		if (is_null($test) || Auth::user()->getId() != $test->user_id)
-			return Response::json(['error' => 'Access denied'], 400);
+		// if (is_null($test) || Auth::user()->getId() != $test->user_id)
+		// 	return Response::json(['error' => 'Access denied'], 400);
 
 		$result->is_correct = $result->is_correct ? false : true;
 
@@ -201,12 +201,16 @@ class ResultController extends BaseController {
 			$result->weight = 0;
 		}
 
-		return Response::json(
-			[
-				'status' => $result->is_correct,
-				'weight' => $result->weight,
-			]
-		);
+		$result->save();
+
+		return Redirect::back()->with('info', 'Ответ отредактирован.');
+		
+		// return Response::json(
+		// 	[
+		// 		'status' => $result->is_correct,
+		// 		'weight' => $result->weight,
+		// 	]
+		// );
 	}
 }
 

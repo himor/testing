@@ -43,7 +43,6 @@
 		<td>{{ $tokens[$item->token]->group_name }}</td>
 		<td>{{ $item->total_weight }}/{{ $total_weight }} (ответов {{ $item->answered }}/{{ $total_questions }})</td>
 		<td>{{ $duration[$item->token] }}</td>
-
 		<td></td>
 	</tr>
 	@endforeach
