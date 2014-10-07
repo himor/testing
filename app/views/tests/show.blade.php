@@ -32,6 +32,10 @@
 	  		<span class="glyphicon glyphicon-eye-open"></span>
 	    	Отобразить результаты
 	  	</a>
+	  	<a class="btn btn-default" href="{{ URL::route('resultcsv.index', $test->id) }}">
+	  		<span class="glyphicon glyphicon-eye-open"></span>
+	    	Выгрузить Excel
+	  	</a>
 	  	@endif
 		<a class="btn btn-success" href="{{ URL::route('token.create', $test->id) }}">
 	  		<span class="glyphicon glyphicon-envelope"></span>
