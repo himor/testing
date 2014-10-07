@@ -83,6 +83,7 @@ class QuestionController extends BaseController {
 
 		$question          = new Question();
 		$question->text    = $data['text'];
+		$question->number  = $data['number'];
 		$question->type    = $data['type'] ? $data['type'] : Question::TYPE_STRING;
 		$question->test_id = $test->id;
 
