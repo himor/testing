@@ -105,7 +105,7 @@ class TokenController extends BaseController
 	public function startAction()
 	{
 		Assets::reset()->add('main');
-		
+
 		$token = $this->getToken();
 		if (!$token) {
 			return Redirect::route('info')
@@ -143,6 +143,10 @@ class TokenController extends BaseController
 	 */
 	public function createAction($id)
 	{
+		if (!Auth::user()) {
+			return Redirect::route('admin');
+		}
+
 		$test = Test::find($id);
 
 		if (is_null($test)) {
