@@ -8,21 +8,12 @@
 class ResultController extends BaseController {
 	protected $layout = 'layout.tests';
 
-	/**
-	 * Display list of results
-	 *
-	 * @param $id
-	 */
-	public function indexAction($id) {
+	private function getResultList($id) {
 		$test = Test::find($id);
 
 		if (is_null($test))
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
-
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя просмотреть результаты теста, созданного другим пользователем');
 
 		/* запрос без группировки для расчёта продолжительности тестов */
 		$results_ = Result::where('test_id', $id)
@@ -86,15 +77,30 @@ class ResultController extends BaseController {
 			}
 		}
 
-		return View::make('tests.results_index', [
-				'test'            => $test,
-				'total_questions' => count($test->questions),
-				'total_weight'    => $tw,
-				'results'         => $results,
-				'tokens'          => $tokens,
-				'duration'        => $ends,
-			]
-		);
+		return [
+			'test'            => $test,
+			'total_questions' => count($test->questions),
+			'total_weight'    => $tw,
+			'results'         => $results,
+			'tokens'          => $tokens,
+			'duration'        => $ends,
+		];
+	}
+
+	/**
+	 * Display list of results
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function indexAction($id) {
+		$results = $this->getResultList($id);
+
+		if (!is_array($results))
+			return $results;
+
+		return View::make('tests.results_index', $results);
 	}
 
 	/**
@@ -204,6 +210,49 @@ class ResultController extends BaseController {
 		$result->save();
 
 		return Redirect::back()->with('info', 'Ответ отредактирован.');
+	}
+
+	/**
+	 * Output results in Excel format
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function indexCsvAction($id) {
+		$results = $this->getResultList($id);
+
+		if (!is_array($results))
+			return $results;
+
+		$test            = $results['test'];
+		$total_questions = $results['total_questions'];
+		$total_weight    = $results['total_weight'];
+		$tokens          = $results['tokens'];
+		$duration        = $results['duration'];
+		$results         = $results['results'];
+
+		$output = [
+			mb_convert_encoding(",Имя Фамилия,Департамент,Отдел,Результат,Длительность", 'CP1251', 'UTF-8')
+		];
+		foreach ($results as $item) {
+			$row      = [];
+			$row[]    = count($output);
+			$row[]    = $tokens[$item->token]->firstName . ' ' . $tokens[$item->token]->lastName;
+			$row[]    = $tokens[$item->token]->dept_name;
+			$row[]    = $tokens[$item->token]->group_name;
+			$row[]    = $item->total_weight . '/' . $total_weight . ' (ответов ' . $item->answered . '/' . $total_questions . ')';
+			$row[]    = $duration[$item->token];
+			$r        = implode(",", $row);
+			$output[] = mb_convert_encoding($r, 'CP1251', 'UTF-8');
+		}
+
+		$headers = array(
+			'Content-Type'        => 'text/csv',
+			'Content-Disposition' => 'attachment; filename="Results ' . $test->name . '.csv";',
+		);
+
+		return Response::make(implode("\n", $output), 200, $headers);
 	}
 }
 

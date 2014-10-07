@@ -313,6 +313,15 @@ Route::get('admin/test/{id}/result/{rid}', [
 );
 
 /**
+ * Test results in CSV format
+ */
+Route::get('admin/test/{id}/csv', [
+		'as'   => 'resultcsv.index',
+		'uses' => 'ResultController@indexCsvAction'
+	]
+);
+
+/**
  * Token initialization
  */
 Route::get('/start', [
