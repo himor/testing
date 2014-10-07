@@ -102,8 +102,18 @@
 						@endif 
 					</td>
 					<td>{{ $item->a_text }}</td>
-					<td>{{ $item->weight }}</td>
-					<td>{{ $weights[$item->question_id] }}</td>
+					<td>
+						@if ($item->question->type == 3)
+						<div class="form-group">
+							<input type="text" class="form-control" id="weight" name="weight" value="{{ $item->weight }}" maxlength="2" style="width: 80px;" />
+						</div>
+						@else
+						{{ $item->weight }}
+						@endif
+					</td>
+					<td>
+						{{ $weights[$item->question_id] }}
+					</td>
 					<td>
 						@if ($item->question->type == 3)
 						<div class="btn-group">
