@@ -15,11 +15,10 @@ class TestController extends BaseController
 	public function indexAction()
 	{
 		Assets::reset()->add('main');
-		
+
 		$token = $this->getToken();
 		if (!$token) {
-			return Redirect::route('info')
-				->with('message', 'Токен не найден');
+			return Redirect::route('base');
 		}
 
 		if ($token->status != Token::TOKEN_STATUS_STARTED) {
