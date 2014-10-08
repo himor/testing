@@ -75,7 +75,7 @@
 				<hr />
 				<div class="form-group edit" id="answers">
 					<?php $i = 1; ?>
-					@if ($question->type === 1)
+					@if ($question->type == 1)
 						@foreach ($question->answers as $answer)
 							<div class="_answer">
 								<h5><mark>Ответ №{{ $i }}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
@@ -101,7 +101,7 @@
 							<?php $i++; ?>
 						@endforeach
 					@endif
-					@if ($question->type === 2)
+					@if ($question->type == 2)
 						@foreach ($question->answers as $answer)
 							<div class="_answer">
 								<h5><mark>Ответ №{{ $i }}</mark> <button type="button" class="btn btn-danger btn-xs _remove_answer">Удалить</button></h5>
