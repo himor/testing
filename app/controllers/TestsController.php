@@ -323,10 +323,10 @@ class TestsController extends BaseController {
 		/**
 		 * Проверим, нет ли ответов по этому тесту
 		 */
-		if (count(Result::where('test_id', $id)->get())) {
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя удалить тест, на который есть ответы');
-		}
+//		if (count(Result::where('test_id', $id)->get())) {
+//			return Redirect::route('tests.index')
+//				->with('error', 'Нельзя удалить тест, на который есть ответы');
+//		}
 
 		/**
 		 * Получим список вопросов
@@ -336,6 +336,8 @@ class TestsController extends BaseController {
 			DB::table('answer')->where('question_id', $q->id)->delete();
 		}
 
+		DB::table('token')->where('test_id', $id)->delete();
+		DB::table('result')->where('test_id', $id)->delete();
 		DB::table('question')->where('test_id', $id)->delete();
 		DB::table('test')->where('id', $id)->delete();
 
