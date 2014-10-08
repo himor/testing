@@ -5,15 +5,13 @@
  *
  * @author Mike Gordo <m.gordo@cityads.ru>
  */
-class TestsController extends BaseController
-{
+class TestsController extends BaseController {
 	protected $layout = 'layout.tests';
 
 	/**
 	 * Display all tests
 	 */
-	public function indexAction()
-	{
+	public function indexAction() {
 		$tests = Test::orderBy('name', 'asc')
 			->orderBy('version', 'desc')->get();
 
@@ -25,8 +23,7 @@ class TestsController extends BaseController
 	 *
 	 * @return mixed
 	 */
-	public function createAction()
-	{
+	public function createAction() {
 		$test           = new Test();
 		$test->name     = 'Мой тест, ' . date('d.m.Y');
 		$test->duration = 10;
@@ -52,15 +49,14 @@ class TestsController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function versionAction($id)
-	{
+	public function versionAction($id) {
 		$test = Test::find($id);
 
 		if (is_null($test))
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		$test->version = (int)$test->version + 1;
+		$test->version  = (int)$test->version + 1;
 		$test->duration = $test->duration / 60;
 
 		$categories           = Category::all();
@@ -81,8 +77,7 @@ class TestsController extends BaseController
 	/**
 	 * Сохранение новой версии теста
 	 */
-	public function storeVersionAction()
-	{
+	public function storeVersionAction() {
 		$data = Input::all();
 		$id   = $data['id'];
 		unset($data['id']);
@@ -114,8 +109,8 @@ class TestsController extends BaseController
 			$data['version'] = $this->getNextVersion($data['name']);
 		}
 
-		$data['user_id'] = Auth::user()->getId();
-		$data['active']  = false;
+		$data['user_id']  = Auth::user()->getId();
+		$data['active']   = false;
 		$data['duration'] = $data['duration'] * 60;
 
 		$test = Test::create($data);
@@ -145,8 +140,7 @@ class TestsController extends BaseController
 	 *
 	 * @return mixed
 	 */
-	public function storeAction()
-	{
+	public function storeAction() {
 		$data       = Input::all();
 		$validation = Validator::make($data, Test::$rules);
 
@@ -175,9 +169,9 @@ class TestsController extends BaseController
 			$data['version'] = $this->getNextVersion($data['name']);
 		}
 
-		$data['user_id'] 	= Auth::user()->getId();
-		$data['active']  	= false;
-		$data['duration'] 	= $data['duration'] * 60; 
+		$data['user_id']  = Auth::user()->getId();
+		$data['active']   = false;
+		$data['duration'] = $data['duration'] * 60;
 
 		$test = Test::create($data);
 
@@ -189,8 +183,7 @@ class TestsController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function showAction($id)
-	{
+	public function showAction($id) {
 		$test = Test::find($id);
 
 		if (is_null($test))
@@ -202,10 +195,15 @@ class TestsController extends BaseController
 		 */
 		$results = count(Result::where('test_id', $id)->get());
 
-		return View::make('tests.show', [
-				'test'    => $test,
-				'results' => $results
+		/**
+		 * Загрузим вопросы
+		 */
+		$questions = Question::where('test_id', $id)->orderBy('number', 'asc')->get();
 
+		return View::make('tests.show', [
+				'test'      => $test,
+				'results'   => $results,
+				'questions' => $questions,
 			]
 		);
 	}
@@ -215,8 +213,7 @@ class TestsController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function editAction($id)
-	{
+	public function editAction($id) {
 		$test = Test::find($id);
 
 		if (is_null($test))
@@ -255,8 +252,7 @@ class TestsController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function updateAction($id)
-	{
+	public function updateAction($id) {
 		$test = Test::find($id);
 
 		if (is_null($test))
@@ -313,8 +309,7 @@ class TestsController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function deleteAction($id)
-	{
+	public function deleteAction($id) {
 		$test = Test::find($id);
 
 		if (is_null($test))
@@ -354,8 +349,7 @@ class TestsController extends BaseController
 	 *
 	 * @return int
 	 */
-	private function getNextVersion($name)
-	{
+	private function getNextVersion($name) {
 		$tests = Test::where('name', $name)->get();
 		$max   = 0;
 		foreach ($tests as $test) {

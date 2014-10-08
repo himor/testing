@@ -74,11 +74,11 @@
 						<td>
 							@if ($test->type == 1)
 							Сумма баллов
-							@endif 
+							@endif
 
 							@if ($test->type == 2)
 							Психологический
-							@endif 
+							@endif
 						</td>
 					</tr>
 					<tr>
@@ -107,17 +107,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($test->questions as $question)
+						@foreach ($questions as $question)
 							<tr>
-								<td>{{ $n++ }}</td>
-								<td> 
+								<td>{{ $question->number }}</td>
+								<td>
 									@if ($question->type == 1)
 									Единственный выбор
 									@elseif ($question->type == 2)
 									Множественный выбор
 									@else
 									Текстовый ответ
-									@endif 
+									@endif
 								</td>
 								<td>{{ $question->text }}</td>
 								<td>
@@ -147,12 +147,12 @@
 												@endforeach
 											</tbody>
 										</table>
-									@else 
+									@else
 										@if ($question->type == 3)
 											—
 										@else
 											К данному вопросу не указаны ответы.
-										@endif										
+										@endif
 									@endif
 								</td>
 								@if ($results == 0)
@@ -169,14 +169,14 @@
 										  	</a>
 											{{ Form::submit('Удалить', array('class' => 'btn btn-danger')) }}
 										</div>
-									{{ Form::close() }}		
+									{{ Form::close() }}
 								</td>
 								@endif
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
-			@else 
+			@else
 				<p>В данном тесте пока нет вопросов.</p>
 			@endif
 		</div>
