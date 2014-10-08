@@ -47,7 +47,6 @@
 		<div class="row">
 			<div class="col-md-6">
 				{{ Form::hidden('test_id'); }}
-				{{ Form::hidden('number'); }}
 				<div class="form-group">
 					{{ Form::label('text', 'Текст вопроса:'); }}
 					{{ Form::textarea('text', null, array('class' => 'form-control')) }}

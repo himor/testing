@@ -189,9 +189,10 @@ class QuestionController extends BaseController {
 				->with('message', 'There were validation errors.');
 		}
 
-		$oldType        = $question->type;
-		$question->text = $data['text'];
-		$question->type = $data['type'] ? $data['type'] : Question::TYPE_STRING;
+		$oldType          = $question->type;
+		$question->text   = $data['text'];
+		$question->number = $data['number'];
+		$question->type   = $data['type'] ? $data['type'] : Question::TYPE_STRING;
 
 		$question->save();
 

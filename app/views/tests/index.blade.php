@@ -41,9 +41,9 @@
 					<td><a href="{{ URL::route('tests.show', $item->id) }}">{{ $item->name }}</a></td>
 					<td>{{ $item->version }}</td>
 					<td>
-						@if (!$item->active) 
-							<span class="label label-success">Открыт</span> 
-						@else 
+						@if ($item->active)
+							<span class="label label-success">Открыт</span>
+						@else
 							<span class="label label-danger">Закрыт</span>
 						@endif
 					</td>
