@@ -6,6 +6,7 @@
  * @author Mike Gordo <m.gordo@cityads.ru>
  */
 class QuestionController extends BaseController {
+
 	/**
 	 * Создание нового вопроса
 	 *
@@ -34,7 +35,7 @@ class QuestionController extends BaseController {
 
 		$question          = new Question();
 		$question->test_id = $id;
-		$question->number  = count(Question::where('test_id', $id)->get()) + 1;
+		$question->number  = DB::table('question')->max('number') + 1;
 
 		return View::make('question.create', [
 				'test'     => $test,
@@ -83,7 +84,7 @@ class QuestionController extends BaseController {
 
 		$question          = new Question();
 		$question->text    = $data['text'];
-		$question->number  = $data['number'];
+		$question->number  = (int)$data['number'];
 		$question->type    = $data['type'] ? $data['type'] : Question::TYPE_STRING;
 		$question->test_id = $test->id;
 

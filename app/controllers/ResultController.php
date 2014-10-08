@@ -128,7 +128,7 @@ class ResultController extends BaseController {
 
 		$results = Result::where('test_id', $id)
 			->where('token', $single->token)
-			->orderBy('created_at', 'desc')
+			->orderBy('question_id', 'asc')
 			->get();
 
 		if (!count($results)) {
