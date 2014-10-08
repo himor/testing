@@ -69,6 +69,10 @@
 						<label>{{ Form::radio('type', Question::TYPE_STRING, false, array('class' => '_answer_type')) }} Текстовый ответ</label>
 					</div>
 				</div>
+				<div class="form-group">
+					{{ Form::label('number', 'Номер вопроса'); }}
+					{{ Form::text('number', null, array('class' => 'form-control small-input', 'maxlength' => '4')) }}
+				</div>
 			</div>
 			<div class="col-md-6">
 				<h4>Варианты ответа: <button type="button" class="btn btn-primary btn-xs" id="add_answer">Добавить</button></h4>

@@ -9,3 +9,7 @@ header {
 textarea {
 	min-height: 150px;
 }
+
+.small-input {
+	width: 100px;
+}
