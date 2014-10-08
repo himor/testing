@@ -29,6 +29,7 @@
 			<th>#</th>
 			<th>Название</th>
 			<th>Версия</th>
+			<th>Статус</th>
 			<th>Категория</th>
 			<th>Действие</th>
 		</thead>
@@ -39,6 +40,13 @@
 					<td>{{ $i++ }}</td>
 					<td><a href="{{ URL::route('tests.show', $item->id) }}">{{ $item->name }}</a></td>
 					<td>{{ $item->version }}</td>
+					<td>
+						@if (!$item->active) 
+							<span class="label label-success">Открыт</span> 
+						@else 
+							<span class="label label-danger">Закрыт</span>
+						@endif
+					</td>
 					<td>{{ $item->category->name }}</td>
 					<td>
 						<a href="{{ URL::route('tests.show', $item->id) }}" class="btn btn-default btn-xs">
