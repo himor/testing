@@ -14,7 +14,7 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			<strong>{{ $question->text }}</strong>
+			<strong>{{ $question->text }}</strong>&nbsp;|&nbsp;Вопрос {{ $answered + 1 }}/{{ $total }}
 		</h3>
 	</div>
 	<div class="panel-body">
