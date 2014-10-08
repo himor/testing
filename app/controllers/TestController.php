@@ -5,15 +5,13 @@
  *
  * @author Mike Gordo <m.gordo@cityads.ru>
  */
-class TestController extends BaseController
-{
+class TestController extends BaseController {
 	/**
 	 * Выводим вопрос пользователю
 	 *
 	 * @return mixed
 	 */
-	public function indexAction()
-	{
+	public function indexAction() {
 		Assets::reset()->add('main');
 
 		$token = $this->getToken();
@@ -38,6 +36,9 @@ class TestController extends BaseController
 		 */
 		$questions = $token->test->questions;
 		$results   = Result::where('token', $token->token)->where('test_id', $token->test->id)->get();
+
+		$has_questions = count($questions);
+		$has_results   = count($results);
 
 		if (count($results)) {
 			if (count($results) == count($questions)) {
@@ -98,7 +99,9 @@ class TestController extends BaseController
 		return View::make('test.index', [
 			'question' => $question,
 			'answers'  => $answers,
-			'token'    => $token
+			'token'    => $token,
+			'total'    => $has_questions,
+			'answered' => $has_results
 		]);
 	}
 
@@ -107,8 +110,7 @@ class TestController extends BaseController
 	 *
 	 * @return mixed
 	 */
-	public function storeAction()
-	{
+	public function storeAction() {
 		$token = $this->getToken();
 		if (!$token) {
 			return Redirect::route('info')
@@ -214,7 +216,7 @@ class TestController extends BaseController
 				} elseif ($isThereACorrectAnswer && count($answers) > 0 && count($answers) == $correctNum) {
 					// проверим, те ли ответы выбрал пользователь
 					$result->is_correct = true;
-					$result->weight = 0;
+					$result->weight     = 0;
 					foreach ($question->answers as $ans) {
 						if (!$ans->is_correct) continue;
 						if (!in_array($ans->id, $answer)) {
@@ -252,8 +254,7 @@ class TestController extends BaseController
 	 *
 	 * @return mixed
 	 */
-	public function checkTime()
-	{
+	public function checkTime() {
 		$token = $this->getToken();
 		if (!$token) {
 			return Response::json(['error' => 'Токен не найден'], 400);
