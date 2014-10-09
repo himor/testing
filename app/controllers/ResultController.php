@@ -233,7 +233,7 @@ class ResultController extends BaseController {
 		$results         = $results['results'];
 
 		$output = [
-			mb_convert_encoding(",Имя Фамилия,Департамент,Отдел,Результат,Длительность", 'CP1251', 'UTF-8')
+			mb_convert_encoding("\tИмя Фамилия\tДепартамент\tОтдел,Результат\tДлительность", 'CP1251', 'UTF-8')
 		];
 		foreach ($results as $item) {
 			$row      = [];
@@ -243,7 +243,7 @@ class ResultController extends BaseController {
 			$row[]    = $tokens[$item->token]->group_name;
 			$row[]    = $item->total_weight . '/' . $total_weight . ' (ответов ' . $item->answered . '/' . $total_questions . ')';
 			$row[]    = $duration[$item->token];
-			$r        = implode(",", $row);
+			$r        = implode("\t", $row);
 			$output[] = mb_convert_encoding($r, 'CP1251', 'UTF-8');
 		}
 
