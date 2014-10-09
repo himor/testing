@@ -278,6 +278,7 @@ class ResultController extends BaseController {
 		$output = [
 			['', 'Имя, Фамилия', 'Департамент', 'Отдел', 'Результат', 'Длительность'],
 		];
+
 		foreach ($results as $item) {
 			$row      = [];
 			$row[]    = count($output);
@@ -290,11 +291,11 @@ class ResultController extends BaseController {
 			$output[] = $row; //mb_convert_encoding($r, 'CP1251', 'UTF-8');
 		}
 
-		foreach ($output as $key => $value) {
-			foreach ($value as $z => $word) {
-				$output[$key][$z] = mb_convert_encoding($word, 'CP1251', 'UTF-8');
-			}
-		}
+//		foreach ($output as $key => $value) {
+//			foreach ($value as $z => $word) {
+//				$output[$key][$z] = mb_convert_encoding($word, 'CP1251', 'UTF-8');
+//			}
+//		}
 
 		Excel::create('Results ' . $test->name, function ($excel) use ($output) {
 			$excel->sheet('Results', function ($sheet) use ($output) {
