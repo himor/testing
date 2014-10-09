@@ -322,6 +322,15 @@ Route::get('admin/test/{id}/csv', [
 );
 
 /**
+ * Test results in XLS format
+ */
+Route::get('admin/test/{id}/xls', [
+		'as'   => 'resultxls.index',
+		'uses' => 'ResultController@indexXlsAction'
+	]
+);
+
+/**
  * Token initialization
  */
 Route::get('/start', [

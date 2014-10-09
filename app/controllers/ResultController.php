@@ -213,7 +213,7 @@ class ResultController extends BaseController {
 	}
 
 	/**
-	 * Output results in Excel format
+	 * Output results in CSV format
 	 *
 	 * @param $id
 	 *
@@ -253,6 +253,56 @@ class ResultController extends BaseController {
 		);
 
 		return Response::make(implode("\n", $output), 200, $headers);
+	}
+
+	/**
+	 * Output results in Excel format
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function indexXlsAction($id) {
+		$results = $this->getResultList($id);
+
+		if (!is_array($results))
+			return $results;
+
+		$test            = $results['test'];
+		$total_questions = $results['total_questions'];
+		$total_weight    = $results['total_weight'];
+		$tokens          = $results['tokens'];
+		$duration        = $results['duration'];
+		$results         = $results['results'];
+
+		$output = [
+			['', 'Имя, Фамилия', 'Департамент', 'Отдел', 'Результат', 'Длительность'],
+		];
+		foreach ($results as $item) {
+			$row      = [];
+			$row[]    = count($output);
+			$row[]    = $tokens[$item->token]->firstName . ' ' . $tokens[$item->token]->lastName;
+			$row[]    = $tokens[$item->token]->dept_name;
+			$row[]    = $tokens[$item->token]->group_name;
+			$row[]    = $item->total_weight . '/' . $total_weight . ' (ответов ' . $item->answered . '/' . $total_questions . ')';
+			$row[]    = $duration[$item->token];
+			$r        = implode("\t", $row);
+			$output[] = $row; //mb_convert_encoding($r, 'CP1251', 'UTF-8');
+		}
+
+		foreach ($output as $key => $value) {
+			foreach ($value as $z => $word) {
+				$output[$key][$z] = mb_convert_encoding($word, 'CP1251', 'UTF-8');
+			}
+		}
+
+		Excel::create('Results ' . $test->name, function ($excel) use ($output) {
+			$excel->sheet('Results', function ($sheet) use ($output) {
+
+				$sheet->fromArray($output);
+
+			});
+		})->export('xls');
 	}
 }
 
