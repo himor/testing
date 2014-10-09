@@ -35,7 +35,7 @@ class QuestionController extends BaseController {
 
 		$question          = new Question();
 		$question->test_id = $id;
-		$question->number  = DB::table('question')->max('number') + 1;
+		$question->number  = Question::where('test_id', $id)->max('number') + 1;
 
 		return View::make('question.create', [
 				'test'     => $test,
