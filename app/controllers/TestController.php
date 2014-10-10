@@ -253,9 +253,9 @@ class TestController extends BaseController {
 	 * Пропуск вопроса
 	 */
 	public function skipAction() {
-		die('skip');
+		Session::forget('question_id');
+		return Redirect::route('test.index');
 	}
-
 	/**
 	 * Ajax запрос на валидность токена
 	 *
