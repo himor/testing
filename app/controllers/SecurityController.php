@@ -4,7 +4,7 @@
  * Class SecurityController
  * Responsible for logging in and out
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class SecurityController extends BaseController
 {

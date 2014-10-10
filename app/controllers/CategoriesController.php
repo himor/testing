@@ -3,7 +3,7 @@
 /**
  * Class CategoriesController
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class CategoriesController extends BaseController
 {

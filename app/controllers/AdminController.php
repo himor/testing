@@ -3,7 +3,7 @@
 /**
  * Class AdminController
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class AdminController extends BaseController
 {

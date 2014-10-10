@@ -3,7 +3,7 @@
 /**
  * Class TestController
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class TestController extends BaseController {
 	/**
@@ -247,6 +247,13 @@ class TestController extends BaseController {
 		Session::forget('question_id');
 
 		return Redirect::route('test.index');
+	}
+
+	/**
+	 * Пропуск вопроса
+	 */
+	public function skipAction() {
+		die('skip');
 	}
 
 	/**

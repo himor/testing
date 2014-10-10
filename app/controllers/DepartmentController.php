@@ -3,7 +3,7 @@
 /**
  * Class DepartmentController
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class DepartmentController extends BaseController
 {

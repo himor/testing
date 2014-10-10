@@ -3,7 +3,7 @@
 /**
  * Class TokenController
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class TokenController extends BaseController
 {

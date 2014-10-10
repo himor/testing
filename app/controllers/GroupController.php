@@ -3,7 +3,7 @@
 /**
  * Class GroupController
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class GroupController extends BaseController
 {

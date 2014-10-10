@@ -3,7 +3,7 @@
 /**
  * Class ResultController
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class ResultController extends BaseController {
 	protected $layout = 'layout.tests';

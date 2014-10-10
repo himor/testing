@@ -363,6 +363,12 @@ Route::get('/test', [
 	]
 );
 
+Route::get('/skip', [
+		'as'   => 'skip.index',
+		'uses' => 'TestController@skipAction'
+	]
+);
+
 Route::post('/test', [
 		'as'   => 'test.store',
 		'uses' => 'TestController@storeAction'
