@@ -101,9 +101,7 @@
 							<th>Тип</th>
 							<th>Текст</th>
 							<th>Ответы</th>
-							@if ($results == 0)
 							<th>Действие</th>
-							@endif
 						</tr>
 					</thead>
 					<tbody>
@@ -155,7 +153,6 @@
 										@endif
 									@endif
 								</td>
-								@if ($results == 0)
 								<td>
 									{{ Form::model($question, [
 										'route'        => ['question.destroy', $question->id],
@@ -167,11 +164,12 @@
 										  		<span class="glyphicon glyphicon-pencil"></span>
 										    	Редактировать
 										  	</a>
+										  	@if ($results == 0)
 											{{ Form::submit('Удалить', array('class' => 'btn btn-danger')) }}
+											@endif
 										</div>
 									{{ Form::close() }}
 								</td>
-								@endif
 							</tr>
 						@endforeach
 					</tbody>
