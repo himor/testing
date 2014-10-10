@@ -37,8 +37,8 @@ class ResultController extends BaseController {
 		}
 
 		$tokens_ = DB::table('token')
-			->join('department', 'department.id', '=', 'token.department_id')
-			->join('group', 'group.id', '=', 'token.group_id')
+			->leftJoin('department', 'department.id', '=', 'token.department_id')
+			->leftJoin('group', 'group.id', '=', 'token.group_id')
 			->select(DB::raw('token.*, department.name as dept_name, group.name as group_name'))
 			->whereIn('token', $tokens)
 			->get();
@@ -222,6 +222,8 @@ class ResultController extends BaseController {
 	public function indexCsvAction($id) {
 		$results = $this->getResultList($id);
 
+		$delimeter = "\t";
+
 		if (!is_array($results))
 			return $results;
 
@@ -233,7 +235,7 @@ class ResultController extends BaseController {
 		$results         = $results['results'];
 
 		$output = [
-			mb_convert_encoding("\tИмя Фамилия\tДепартамент\tОтдел,Результат\tДлительность", 'CP1251', 'UTF-8')
+			mb_convert_encoding("{$delimeter}Имя Фамилия{$delimeter}Департамент{$delimeter}Отдел{$delimeter}Результат{$delimeter}Длительность", 'CP1251', 'UTF-8')
 		];
 		foreach ($results as $item) {
 			$row      = [];
@@ -243,7 +245,7 @@ class ResultController extends BaseController {
 			$row[]    = $tokens[$item->token]->group_name;
 			$row[]    = $item->total_weight . '/' . $total_weight . ' (ответов ' . $item->answered . '/' . $total_questions . ')';
 			$row[]    = $duration[$item->token];
-			$r        = implode("\t", $row);
+			$r        = implode($delimeter, $row);
 			$output[] = mb_convert_encoding($r, 'CP1251', 'UTF-8');
 		}
 

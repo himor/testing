@@ -123,9 +123,8 @@ class TokenController extends BaseController
 		}
 
 		if (!$data['department_id'] || !$data['group_id']) {
-			return Redirect::route('start.index')
-				->withInput()
-				->with('message', 'Выберите департамент и отдел!');
+			unset($data['department_id']);
+			unset($data['group_id']);
 		}
 
 		$token->update($data);
