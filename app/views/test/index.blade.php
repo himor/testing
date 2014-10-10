@@ -40,7 +40,12 @@
 				@endforeach
 			@endif
 			<hr />
-			<input type="submit" class="btn btn-success" />
+			<div class="btn-group">
+				<input type="submit" class="btn btn-success" />
+				@if ($answered + 1 != $total)
+				<a href="{{ URL::route('skip.index') }}" class="btn btn-default">Пропустить</a>
+				@endif
+			</div>
 		</form>
 	</div>
 </div>
