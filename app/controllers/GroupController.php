@@ -5,15 +5,14 @@
  *
  * @author Mike Gordo <mgordo@live.com>
  */
-class GroupController extends BaseController
-{
+class GroupController extends BaseController {
+
 	protected $layout = 'layout.groups';
 
 	/**
 	 * Display all groups
 	 */
-	public function indexAction()
-	{
+	public function indexAction() {
 		$groups = Group::all();
 
 		return View::make('group.index', ['groups' => $groups]);
@@ -22,8 +21,7 @@ class GroupController extends BaseController
 	/**
 	 * Display a page to create a new group
 	 */
-	public function createAction()
-	{
+	public function createAction() {
 		$group = new Group();
 
 		return View::make('group.create', ['group' => $group]);
@@ -32,8 +30,7 @@ class GroupController extends BaseController
 	/**
 	 * Create a new group
 	 */
-	public function storeAction()
-	{
+	public function storeAction() {
 		$validation = Validator::make(Input::all(), Group::$rules);
 
 		if (!$validation->passes()) {
@@ -62,8 +59,7 @@ class GroupController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function showAction($id)
-	{
+	public function showAction($id) {
 		$group = Group::find($id);
 
 		if (is_null($group))
@@ -79,8 +75,7 @@ class GroupController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function editAction($id)
-	{
+	public function editAction($id) {
 		$group = Group::find($id);
 
 		if (is_null($group))
@@ -95,9 +90,8 @@ class GroupController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function updateAction($id)
-	{
-		$group  = Group::find($id);
+	public function updateAction($id) {
+		$group      = Group::find($id);
 		$validation = Validator::make(Input::all(), Group::$rules);
 
 		if (!$validation->passes()) {
@@ -120,6 +114,7 @@ class GroupController extends BaseController
 
 		$group->update(Input::all());
 		$group->save();
+
 		return Redirect::route('groups.show', $id);
 	}
 
@@ -128,8 +123,7 @@ class GroupController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function deleteAction($id)
-	{
+	public function deleteAction($id) {
 		$group = Group::find($id);
 
 		if (is_null($group))
@@ -137,6 +131,7 @@ class GroupController extends BaseController
 				->with('error', 'Incorrect group id');
 
 		DB::table('group')->where('id', $id)->delete();
+
 		return Redirect::route('groups.index');
 	}
 }

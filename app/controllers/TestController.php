@@ -6,8 +6,9 @@
  * @author Mike Gordo <mgordo@live.com>
  */
 class TestController extends BaseController {
+
 	/**
-	 * Выводим вопрос пользователю
+	 * Display question to the user
 	 *
 	 * @return mixed
 	 */
@@ -32,7 +33,7 @@ class TestController extends BaseController {
 		}
 
 		/**
-		 * Тут получаем следующий вопрос, выводим его пользователю
+		 * get next question
 		 */
 		$questions = $token->test->questions;
 		$results   = Result::where('token', $token->token)->where('test_id', $token->test->id)->get();
@@ -43,14 +44,14 @@ class TestController extends BaseController {
 		if (count($results)) {
 			if (count($results) == count($questions)) {
 				/**
-				 * Ответы есть на все вопросы
+				 * User have answered all questions
 				 */
 				Session::forget('token_string');
 
 				return Redirect::route('info')->with('message', 'Тест завершен. Вы ответили на все вопросы.');
 			} else {
 				/**
-				 * Убирает вопросы на которые есть ответы
+				 * Ignore answered questions
 				 */
 				$answered = [];
 				foreach ($results as $result) {
@@ -66,7 +67,7 @@ class TestController extends BaseController {
 		}
 
 		/**
-		 * Перемешаем вопросы, сгенерируем кодовые суммы
+		 * shuffle questions
 		 */
 		$questions_ = [];
 		foreach ($questions as $q) {
@@ -106,11 +107,12 @@ class TestController extends BaseController {
 	}
 
 	/**
-	 * Сохраняем ответ пользователя
+	 * Store the answer
 	 *
 	 * @return mixed
 	 */
 	public function storeAction() {
+
 		$token = $this->getToken();
 		if (!$token) {
 			return Redirect::route('info')
@@ -152,7 +154,7 @@ class TestController extends BaseController {
 		$result->q_image     = $question->image;
 
 		/**
-		 * Обработаем ответ в зависимости от типа
+		 * Process the answer depending on question type
 		 */
 		switch ($question->type) {
 			case Question::TYPE_RADIO:
@@ -194,7 +196,7 @@ class TestController extends BaseController {
 
 				$isThereACorrectAnswer = false;
 				$correctNum            = 0;
-				// есть ли хоть один правильный ответ?
+				// Is there at least one correct answer?
 				foreach ($question->answers as $ans) {
 					if ($ans->is_correct) {
 						$isThereACorrectAnswer = true;
@@ -205,7 +207,7 @@ class TestController extends BaseController {
 				$result->a_text = '';
 
 				if (!$isThereACorrectAnswer && count($answers) > 0) {
-					// правильных ответов нет, но пользователь что-то выбрал
+					// There are no correct answers, but user have chosen something
 					$result->is_correct = false;
 				} elseif (!$isThereACorrectAnswer && count($answers) == 0) {
 					$result->is_correct = true;
@@ -214,7 +216,7 @@ class TestController extends BaseController {
 				} elseif ($isThereACorrectAnswer && count($answers) > 0 && count($answers) != $correctNum) {
 					$result->is_correct = false;
 				} elseif ($isThereACorrectAnswer && count($answers) > 0 && count($answers) == $correctNum) {
-					// проверим, те ли ответы выбрал пользователь
+					// check if all correct answers selected
 					$result->is_correct = true;
 					$result->weight     = 0;
 					foreach ($question->answers as $ans) {
@@ -250,14 +252,16 @@ class TestController extends BaseController {
 	}
 
 	/**
-	 * Пропуск вопроса
+	 * Skip the question
 	 */
 	public function skipAction() {
 		Session::forget('question_id');
+
 		return Redirect::route('test.index');
 	}
+
 	/**
-	 * Ajax запрос на валидность токена
+	 * Ajax check if token is valid
 	 *
 	 * @return mixed
 	 */

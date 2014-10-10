@@ -5,15 +5,14 @@
  *
  * @author Mike Gordo <mgordo@live.com>
  */
-class DepartmentController extends BaseController
-{
+class DepartmentController extends BaseController {
+
 	protected $layout = 'layout.departments';
 
 	/**
 	 * Display all departments
 	 */
-	public function indexAction()
-	{
+	public function indexAction() {
 		$departments = Department::all();
 
 		return View::make('department.index', ['departments' => $departments]);
@@ -22,8 +21,7 @@ class DepartmentController extends BaseController
 	/**
 	 * Display a page to create a new department
 	 */
-	public function createAction()
-	{
+	public function createAction() {
 		$department = new Department();
 
 		return View::make('department.create', ['department' => $department]);
@@ -32,8 +30,7 @@ class DepartmentController extends BaseController
 	/**
 	 * Create a new department
 	 */
-	public function storeAction()
-	{
+	public function storeAction() {
 		$validation = Validator::make(Input::all(), Department::$rules);
 
 		if (!$validation->passes()) {
@@ -62,8 +59,7 @@ class DepartmentController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function showAction($id)
-	{
+	public function showAction($id) {
 		$department = Department::find($id);
 
 		if (is_null($department))
@@ -79,8 +75,7 @@ class DepartmentController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function editAction($id)
-	{
+	public function editAction($id) {
 		$department = Department::find($id);
 
 		if (is_null($department))
@@ -95,9 +90,8 @@ class DepartmentController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function updateAction($id)
-	{
-		$department  = Department::find($id);
+	public function updateAction($id) {
+		$department = Department::find($id);
 		$validation = Validator::make(Input::all(), Department::$rules);
 
 		if (!$validation->passes()) {
@@ -120,6 +114,7 @@ class DepartmentController extends BaseController
 
 		$department->update(Input::all());
 		$department->save();
+
 		return Redirect::route('departments.show', $id);
 	}
 
@@ -128,8 +123,7 @@ class DepartmentController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function deleteAction($id)
-	{
+	public function deleteAction($id) {
 		$department = Department::find($id);
 
 		if (is_null($department))
@@ -137,6 +131,7 @@ class DepartmentController extends BaseController
 				->with('error', 'Incorrect department id');
 
 		DB::table('department')->where('id', $id)->delete();
+
 		return Redirect::route('departments.index');
 	}
 }

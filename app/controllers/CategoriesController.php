@@ -5,15 +5,14 @@
  *
  * @author Mike Gordo <mgordo@live.com>
  */
-class CategoriesController extends BaseController
-{
+class CategoriesController extends BaseController {
+
 	protected $layout = 'layout.categories';
 
 	/**
 	 * Display all categories
 	 */
-	public function indexAction()
-	{
+	public function indexAction() {
 		$categories = Category::all();
 
 		return View::make('category.index', ['categories' => $categories]);
@@ -22,8 +21,7 @@ class CategoriesController extends BaseController
 	/**
 	 * Display a page to create a new category
 	 */
-	public function createAction()
-	{
+	public function createAction() {
 		$category = new Category();
 
 		return View::make('category.create', ['category' => $category]);
@@ -32,8 +30,7 @@ class CategoriesController extends BaseController
 	/**
 	 * Create a new category
 	 */
-	public function storeAction()
-	{
+	public function storeAction() {
 		$validation = Validator::make(Input::all(), Category::$rules);
 
 		if (!$validation->passes()) {
@@ -62,8 +59,7 @@ class CategoriesController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function showAction($id)
-	{
+	public function showAction($id) {
 		$category = Category::find($id);
 
 		if (is_null($category))
@@ -78,8 +74,7 @@ class CategoriesController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function editAction($id)
-	{
+	public function editAction($id) {
 		$category = Category::find($id);
 
 		if (is_null($category))
@@ -94,9 +89,8 @@ class CategoriesController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function updateAction($id)
-	{
-		$category = Category::find($id);
+	public function updateAction($id) {
+		$category   = Category::find($id);
 		$validation = Validator::make(Input::all(), Category::$rules);
 
 		if (!$validation->passes()) {
@@ -119,6 +113,7 @@ class CategoriesController extends BaseController
 
 		$category->update(Input::all());
 		$category->save();
+
 		return Redirect::route('categories.show', $id);
 	}
 
@@ -127,8 +122,7 @@ class CategoriesController extends BaseController
 	 *
 	 * @param $id
 	 */
-	public function deleteAction($id)
-	{
+	public function deleteAction($id) {
 		$category = Category::find($id);
 
 		if (is_null($category))
@@ -146,6 +140,7 @@ class CategoriesController extends BaseController
 		}
 
 		DB::table('category')->where('id', $id)->delete();
+
 		return Redirect::route('categories.index');
 	}
 }

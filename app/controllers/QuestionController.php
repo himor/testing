@@ -8,25 +8,22 @@
 class QuestionController extends BaseController {
 
 	/**
-	 * Создание нового вопроса
+	 * Create new question for the test
 	 *
 	 * @param $id test id
 	 *
 	 * @return mixed
 	 */
 	public function createAction($id) {
+
 		$test = Test::find($id);
 
 		if (is_null($test))
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
-//
 		/**
-		 * Проверим, нет ли ответов по этому тесту
+		 * Check if we have results already
 		 */
 		if (count(Result::where('test_id', $id)->get())) {
 			return Redirect::route('tests.index')
@@ -45,11 +42,12 @@ class QuestionController extends BaseController {
 	}
 
 	/**
-	 * Сохранение нового вопроса
+	 * Storing new question
 	 *
 	 * @return mixed
 	 */
 	public function storeAction() {
+
 		$data = Input::all();
 		$num  = (int)$data['number_of_answers'];
 
@@ -59,12 +57,8 @@ class QuestionController extends BaseController {
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
-
 		/**
-		 * Проверим, нет ли ответов по этому тесту
+		 * Check if we have results already
 		 */
 		if (count(Result::where('test_id', $test->id)->get())) {
 			return Redirect::route('tests.index')
@@ -119,11 +113,12 @@ class QuestionController extends BaseController {
 	}
 
 	/**
-	 * Редактирование вопроса
+	 * Edit answers
 	 *
 	 * @param $id
 	 */
 	public function editAction($id) {
+
 		$question = Question::find($id);
 
 		if (is_null($question))
@@ -131,18 +126,6 @@ class QuestionController extends BaseController {
 				->with('error', 'Incorrect question id');
 
 		$test = $question->test;
-
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
-
-		/**
-		 * Проверим, нет ли ответов по этому тесту
-		 */
-		if (count(Result::where('test_id', $test->id)->get())) {
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест, на который есть ответы');
-		}
 
 		return View::make('question.edit', [
 				'test'     => $test,
@@ -152,10 +135,10 @@ class QuestionController extends BaseController {
 	}
 
 	/**
-	 * Сохранение изменений в вопросе
+	 * Update the answers
 	 */
 	public function updateAction() {
-		// обновление данных вопроса и ответов
+
 		$data = Input::all();
 		$num  = (int)$data['number_of_answers'];
 
@@ -165,18 +148,6 @@ class QuestionController extends BaseController {
 		if (is_null($test) || is_null($question) || $test->id != $question->test->id)
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect id');
-
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
-
-		/**
-		 * Проверим, нет ли ответов по этому тесту
-		 */
-		if (count(Result::where('test_id', $test->id)->get())) {
-			return Redirect::route('tests.index')
-				->with('error', 'Нельзя редактировать тест, на который есть ответы');
-		}
 
 		$validation = Validator::make([
 			'text' => $data['text']
@@ -197,7 +168,7 @@ class QuestionController extends BaseController {
 		$question->save();
 
 		/**
-		 * Удалить все старые ответы
+		 * Erase all old answers
 		 */
 		DB::table('answer')->where('question_id', $question->id)->delete();
 
@@ -230,7 +201,7 @@ class QuestionController extends BaseController {
 	}
 
 	/**
-	 * Удаление вопроса
+	 * Delete the question
 	 *
 	 * @param $id
 	 */
@@ -243,12 +214,8 @@ class QuestionController extends BaseController {
 
 		$test = $question->test;
 
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
-
 		/**
-		 * Проверим, нет ли ответов по этому тесту
+		 * Check if we have results already
 		 */
 		if (count(Result::where('test_id', $test->id)->get())) {
 			return Redirect::route('tests.index')

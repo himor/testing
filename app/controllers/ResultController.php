@@ -6,6 +6,7 @@
  * @author Mike Gordo <mgordo@live.com>
  */
 class ResultController extends BaseController {
+
 	protected $layout = 'layout.tests';
 
 	private function getResultList($id) {
@@ -15,7 +16,7 @@ class ResultController extends BaseController {
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-		/* запрос без группировки для расчёта продолжительности тестов */
+		/* query with no grouping for test duration calculation */
 		$results_ = Result::where('test_id', $id)
 			->orderBy('created_at', 'desc')
 			->get();
@@ -48,7 +49,7 @@ class ResultController extends BaseController {
 			$tokens[$token->token] = $token;
 		}
 
-		/* когда закончили тесты минус когда начали */
+		/* finish minus start */
 		$ends = [];
 		foreach ($results_ as $result) {
 			$start    = $tokens[$result->token]->start;
@@ -58,7 +59,7 @@ class ResultController extends BaseController {
 			}
 		}
 
-		/* нормализация времени */
+		/* make time human-readable */
 		foreach ($ends as $key => $value) {
 			$min        = (int)($value / 60);
 			$sec        = $value - $min * 60;
@@ -115,10 +116,6 @@ class ResultController extends BaseController {
 		if (is_null($test))
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
-
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя просмотреть результаты теста, созданного другим пользователем');
 
 		$single = Result::find($rid);
 

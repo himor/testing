@@ -5,12 +5,11 @@
  *
  * @author Mike Gordo <mgordo@live.com>
  */
-class AdminController extends BaseController
-{
-	public function defaultAction()
-	{
+class AdminController extends BaseController {
+
+	public function defaultAction() {
 		/**
-		 * На какой роут мы редидектим при входе в админку
+		 * Which route should user be redirected after log in
 		 */
 		return Redirect::route('tests.index');
 	}

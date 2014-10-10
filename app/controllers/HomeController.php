@@ -5,12 +5,11 @@
  *
  * @author Mike Gordo <mgordo@live.com>
  */
-class HomeController extends BaseController
-{
-	public function defaultAction()
-	{
+class HomeController extends BaseController {
+
+	public function defaultAction() {
 		/**
-		 * Проверим, нет ли токена в нашей сессии?
+		 * Check is session contains token
 		 */
 		$token = $this->getToken();
 
@@ -23,19 +22,18 @@ class HomeController extends BaseController
 		}
 
 		/**
-		 * По умолчанию мы редиректим на логин, если нет сессии
+		 * By default redirect to login if no token found
 		 */
 
 		return Redirect::route('admin');
 	}
 
 	/**
-	 * Сообщаем пользователю информацию
+	 * Display information to user
 	 *
 	 * @return mixed
 	 */
-	public function infoAction()
-	{
+	public function infoAction() {
 		return View::make('base.info');
 	}
 

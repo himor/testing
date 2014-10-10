@@ -6,6 +6,7 @@
  * @author Mike Gordo <mgordo@live.com>
  */
 class TestsController extends BaseController {
+
 	protected $layout = 'layout.tests';
 
 	/**
@@ -19,7 +20,7 @@ class TestsController extends BaseController {
 	}
 
 	/**
-	 * Создание нового теста
+	 * Create new test
 	 *
 	 * @return mixed
 	 */
@@ -45,7 +46,7 @@ class TestsController extends BaseController {
 	}
 
 	/**
-	 * Создать новую версию теста
+	 * Create new version of the test
 	 *
 	 * @param $id
 	 */
@@ -75,7 +76,7 @@ class TestsController extends BaseController {
 	}
 
 	/**
-	 * Сохранение новой версии теста
+	 * Store new version of the test
 	 */
 	public function storeVersionAction() {
 		$data = Input::all();
@@ -104,7 +105,7 @@ class TestsController extends BaseController {
 			->where('version', (int)$data['version'])->get())
 		) {
 			/**
-			 * Такой тест существует, поменяем версию
+			 * This test exists, generate new version
 			 */
 			$data['version'] = $this->getNextVersion($data['name']);
 		}
@@ -116,7 +117,7 @@ class TestsController extends BaseController {
 		$test = Test::create($data);
 
 		/**
-		 * Клонировать вопросы и ответы из предыдущего теста
+		 * Clone all Questions and Answers
 		 */
 		$questions = Question::where('test_id', $id)->get();
 		foreach ($questions as $q) {
@@ -136,7 +137,7 @@ class TestsController extends BaseController {
 	}
 
 	/**
-	 * Сохранение нового теста
+	 * Store new test
 	 *
 	 * @return mixed
 	 */
@@ -164,7 +165,7 @@ class TestsController extends BaseController {
 			->where('version', (int)$data['version'])->get())
 		) {
 			/**
-			 * Такой тест существует, поменяем версию
+			 * This test exists, generate new version
 			 */
 			$data['version'] = $this->getNextVersion($data['name']);
 		}
@@ -191,12 +192,12 @@ class TestsController extends BaseController {
 				->with('error', 'Incorrect test id');
 
 		/**
-		 * Проверим, нет ли ответов по этому тесту
+		 * Check if we have any answers already
 		 */
 		$results = count(Result::where('test_id', $id)->get());
 
 		/**
-		 * Загрузим вопросы
+		 * Load all the questions in the right order
 		 */
 		$questions = Question::where('test_id', $id)->orderBy('number', 'asc')->get();
 
@@ -220,12 +221,8 @@ class TestsController extends BaseController {
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
-
 		/**
-		 * Проверим, нет ли ответов по этому тесту
+		 * Check if we have any answers already
 		 */
 		$results = count(Result::where('test_id', $id)->get());
 
@@ -259,10 +256,6 @@ class TestsController extends BaseController {
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя редактировать тест созданный другим пользователем');
-
 		$validation = Validator::make(Input::all(), Test::$rules);
 
 		if (!$validation->passes()) {
@@ -277,7 +270,7 @@ class TestsController extends BaseController {
 		$data['duration'] = $data['duration'] * 60;
 
 		/**
-		 * Проверим, нет ли ответов по этому тесту
+		 * Check if we have any answers already
 		 */
 		$results = count(Result::where('test_id', $id)->get());
 		if ($results > 0) {
@@ -292,7 +285,7 @@ class TestsController extends BaseController {
 			where('id', '!=', $id)->get())
 		) {
 			/**
-			 * Такой тест существует, поменяем версию
+			 * This test exists, generate new version
 			 */
 			$data['version'] = $this->getNextVersion($data['name']);
 		}
@@ -316,20 +309,8 @@ class TestsController extends BaseController {
 			return Redirect::route('tests.index')
 				->with('error', 'Incorrect test id');
 
-//		if (Auth::user()->getId() != $test->user_id)
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя удалить тест созданный другим пользователем');
-
 		/**
-		 * Проверим, нет ли ответов по этому тесту
-		 */
-//		if (count(Result::where('test_id', $id)->get())) {
-//			return Redirect::route('tests.index')
-//				->with('error', 'Нельзя удалить тест, на который есть ответы');
-//		}
-
-		/**
-		 * Получим список вопросов
+		 * Get the list of answers
 		 */
 		$questions = Question::where('test_id', $id)->get();
 		foreach ($questions as $q) {

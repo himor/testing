@@ -3,7 +3,7 @@
 /**
  * Class UserController
  *
- * @author Mike Gordo <m.gordo@cityads.ru>
+ * @author Mike Gordo <mgordo@live.com>
  */
 class UserController extends BaseController
 {

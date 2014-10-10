@@ -5,15 +5,14 @@
  *
  * @author Mike Gordo <mgordo@live.com>
  */
-class TokenController extends BaseController
-{
+class TokenController extends BaseController {
+
 	//protected $layout = 'layout.groups';
 
 	/**
 	 * Check token
 	 */
-	public function indexAction($tokenString)
-	{
+	public function indexAction($tokenString) {
 		Assets::reset()->add('main');
 
 		$token = Token::where('token', $tokenString)->get()->first();
@@ -48,8 +47,7 @@ class TokenController extends BaseController
 	/**
 	 * Start test
 	 */
-	public function startIndexAction()
-	{
+	public function startIndexAction() {
 		Assets::reset()->add('main');
 
 		$token = $this->getToken();
@@ -100,10 +98,9 @@ class TokenController extends BaseController
 	}
 
 	/**
-	 * Сохранить данные пользователя и начать тест
+	 * Store user data and start the test
 	 */
-	public function startAction()
-	{
+	public function startAction() {
 		Assets::reset()->add('main');
 
 		$token = $this->getToken();
@@ -136,12 +133,11 @@ class TokenController extends BaseController
 	}
 
 	/**
-	 * Создание токена для теста
+	 * Create token for the test
 	 *
 	 * @param $id
 	 */
-	public function createAction($id)
-	{
+	public function createAction($id) {
 		if (!Auth::user()) {
 			return Redirect::route('admin');
 		}
@@ -153,8 +149,8 @@ class TokenController extends BaseController
 				->with('message', 'Тест не найден');
 		}
 
-		$token = new Token();
-		$token->token = $token->generate($test->name);
+		$token          = new Token();
+		$token->token   = $token->generate($test->name);
 		$token->test_id = $id;
 		$token->save();
 
